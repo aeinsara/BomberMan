@@ -42,36 +42,99 @@ public:
 class World
 {
 private:
-	Wall *wall;
-
+	Wall **wall;
+	int **ary;
 	float mWorldLength;
 	float mWorldWidth;
 
 public:
 	World()
 	{
-
-		wall = new Wall[40];
-		int m = 40;
-		int n = 40;
-		for(int i=0 ;i<40 ;i++)
+		ary = new int*[17];
+		for(int i=0; i<17;i++)
+			ary[i] = new int[17];
+		for(int i=1 ;i<16 ;i++)
+		for(int j=1 ;j<16 ;j++)
 		{
-			if(i%6 == 0){
-				n+=150;
-				m = 40;
+			if(j%2 == 0)
+				ary[i][j] = 2;
+			else
+			{
+				if(i%2 == 0)
+					ary[i][j] = 1;
+				else
+					ary[i][j] = 2;
 			}
-			wall[i].setPosition(m, n);
-			m+=150;
 		}
+		for(int i =0 ;i<17 ;i++)
+			ary[0][i] = 1;
+		for(int i =0 ;i<17 ;i++)
+			ary[16][i] = 1;
+		for(int i =0 ;i<17 ;i++)
+			ary[i][0] = 1;
+		for(int i =0 ;i<17 ;i++)
+			ary[i][16] = 1;		
+		
+		wall = new Wall*[17];
+		for(int i =0 ;i<17 ;i++)
+		{
+			wall[i] = new Wall[17];
+		}
+				
+		int m=0;
+		int n=0;
+		for(int i =0 ;i<17 ;i++)
+		{
+			wall[0][i].getPosition()->x = m;
+			wall[0][i].getPosition()->y = n;
+			m+=33;
+		}	
+		//n = 540;
+		m=0;
+		for(int i =0 ;i<17 ;i++)
+		{
+			wall[16][i].getPosition()->x = m;
+			wall[16][i].getPosition()->y = 512;
+			m+=33;			
+		}
+		n =0;
+		for(int i =0 ;i<17 ;i++)
+		{
+			wall[i][16].getPosition()->x = 528;
+			wall[i][16].getPosition()->y = n;
+			n+=32;			
+		}
+		n =0;
+		for(int i =0 ;i<17 ;i++)
+		{
+			wall[i][0].getPosition()->x = 0;
+			wall[i][0].getPosition()->y = n;
+			n+=32;			
+		}
+	
+		m = 33;
+		n = 32;
 
+		for(int i=1 ; i<16;i++)
+		{
+			for(int j=1; j<16;j++)
+			{
+				wall[i][j].getPosition()->x = m;
+				wall[i][j].getPosition()->y = n;
+				m+=33;
+			}
+			n+=32;
+			m=33;
+		}
 		mWorldLength = 100.0f;
 		mWorldWidth = 100.0f;
-
-		//mCycleTime = 20; 
 	}
 
-
-	Wall *getWall()
+	int **getAry()
+	{
+		return ary;
+	}
+	Wall **getWall()
 	{
 		return wall;
 	}
@@ -89,27 +152,39 @@ private:
 public:
 	GUI()
 	{
-		monitorLength = 1200;
-		monitorWidth = 800;
+		monitorLength = 612;
+		monitorWidth = 612;
 
 		window = new sf::RenderWindow(sf::VideoMode(monitorLength, monitorWidth), "Tanks");
+		
 	}
 
-	void drawTank(Wall *wall, bool isLeft)
+	void drawTank(Wall **wall, int **ary)
 	{
 		
-
-		
-		
 		sf::RectangleShape line(sf::Vector2f(20 , 30));
-		for(int i=0;i<40 ;i++)
+
+		for(int i=0;i<17 ;i++)
+		for(int j=0 ;j<17;j++)
 		{
-			sf::Texture texture1;
-			if(!texture1.loadFromFile("/home/fateme/Pictures/7.jpeg")){}
-			sf::Sprite texture1sprite1(texture1);
-			texture1sprite1.setTexture(texture1);
-			texture1sprite1.setPosition(wall[i].getPosition()->x, wall[i].getPosition()->y );
-			window->draw(texture1sprite1);
+
+			if(ary[i][j] == 1)
+			{		
+				sf::Texture texture1;
+				if(!texture1.loadFromFile("/home/fateme/Desktop/images/q1.PNG")){}
+				sf::Sprite texture1sprite1(texture1);
+				texture1sprite1.setTexture(texture1);
+				texture1sprite1.setPosition(wall[i][j].getPosition()->x, wall[i][j].getPosition()->y );
+				window->draw(texture1sprite1);
+			}
+			
+			if(ary[i][j] == 2){
+			sf::Texture texture2;
+			if(!texture2.loadFromFile("/home/fateme/Desktop/images/q3.PNG")){}
+			sf::Sprite texture1sprite2(texture2);
+			texture1sprite2.setTexture(texture2);
+			texture1sprite2.setPosition(wall[i][j].getPosition()->x, wall[i][j].getPosition()->y );
+			window->draw(texture1sprite2);}
 			//line.setPosition(wall[i].getPosition()->x , wall[i].getPosition()->y);
 		
 		//	window->draw(line);
@@ -119,9 +194,9 @@ public:
 
 	void show(World *world)
 	{
-		window->clear();
-
-		drawTank(world->getWall(), true);
+		window->clear(sf::Color(255,255,255));
+		//window->Clear(sf::Color(200, 0, 0));
+		drawTank(world->getWall(), world->getAry());
 		window->display();
 	}
 
@@ -182,3 +257,5 @@ int main()
 	manager.run();
 	return 0;
 }
+//g++ test1.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+//g++ -c test1.cpp
