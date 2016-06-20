@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "Vector.cpp"
+using namespace std;
+
 class BomberMan
 {
 	private:
@@ -9,7 +12,9 @@ class BomberMan
 		float velocity;
 		string face;
 	public:
-		Man();
+		BomberMan(){
+			position = new Vector();
+			}
 		void setPosition(float x, float y)
 		{
 			position->x = x;
@@ -45,5 +50,5 @@ class BomberMan
 			return velocity;
 		}
 		
-}
+};
 

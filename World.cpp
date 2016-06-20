@@ -1,4 +1,5 @@
-#include "BomberMan.cpp"
+#include "wall.cpp"
+
 class World
 {
 private:
@@ -91,7 +92,7 @@ public:
 		mWorldWidth = 100.0f;
 		
 		upMan = new BomberMan();
-		upMan->setPosition(50, 50);
+		upMan->setPosition(30, 20);
 		upMan->setFace("right");
 		upMan->setVelocity(4);
 		upMan->setLife(100);
@@ -111,11 +112,11 @@ public:
 	{
 		return wall;
 	}
-	Man *getupMan()
+	BomberMan *getupMan()
 	{
 		return upMan;
 	}
-	Man *getdownMan()
+	BomberMan *getdownMan()
 	{
 		return downMan;
 	}
