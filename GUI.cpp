@@ -1,4 +1,4 @@
-#include "Gui.h"
+#include "GUI.h"
 #include <iostream>
 #include <cmath>
 #include <SFML/Graphics.hpp>
