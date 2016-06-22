@@ -1,24 +1,17 @@
-#include "Position.cpp"
+#include "Wall.h"
 
-class Wall
+Wall::Wall()
 {
-protected:
-	Position *pos;
-public:
-	Wall()
-	{
-		pos = new Position();
-	}
-	
-	void setPosition(float x, float y)
-	{
-		pos->x = x;
-		pos->y = y;
-	}
-	
-	Position *getPosition()
-	{
-		return pos;
-	}
+	pos = new Position();
+}
 
-};
+void Wall::setPosition(float x, float y)
+{
+	pos->x = x;
+	pos->y = y;
+}
+
+Position* Wall::getPosition()
+{
+	return pos;
+}
