@@ -1,4 +1,4 @@
-#include "Wall.cpp"
+#include "Wall.h"
 
 class Brick : public Wall
 {
