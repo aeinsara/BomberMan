@@ -1,24 +1,17 @@
-#include "Wall.cpp"
+#include "Brick.h"
 
-class Brick : public Wall
+Brick::Brick() : Wall()
 {
-private:
-	int type;
-public:
-	Brick() : Wall()
-	{
-		type = 0;
-	}
+	type = 0;
+}
 	
-	void set_type(int type)
-	{
-		this->type = type;
-	}
+void Brick::set_type(int type)
+{
+	this->type = type;
+}
 	
-	int get_type()
-	{
-		return type;
-	}
-	
-	
-};
+int Brick::get_type()
+{
+	return type;
+}	
+
