@@ -62,6 +62,12 @@ public:
 				window->draw(texture1sprite1);
 		}		
 	}
+	
+	void drawBomb(); ///////////////////////////////////////////////////////// just header
+	void brusting(Bomb* bomb){
+		bomb->burstFlag = 0;
+	} ///////////////////////////////////////////////////////////////////////// just header .... please write graphic part!!
+	
 	void show(World *world)
 	{
 		window->clear(sf::Color(255,255,255));
