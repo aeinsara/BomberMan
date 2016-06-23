@@ -1,5 +1,4 @@
 #include "Wall.h"
-
 Wall::Wall()
 {
 	pos = new Position();

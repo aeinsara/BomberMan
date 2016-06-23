@@ -1,29 +1,16 @@
 #include "GUI.h"
 #include <iostream>
-#include <cmath>
-#include <SFML/Graphics.hpp>
-#define SFML_KEYBOARD_HPP
-#include <SFML/Window/Export.hpp>
-class GUI
-{
-private:
-	int monitorLength;
-	int monitorWidth;
 
-	sf::RenderWindow *window;
-	sf::Event event;
-
-public:
-	GUI()
+GUI::GUI()
 	{
 		monitorLength = 612;
 		monitorWidth = 612;
 
-		window = new sf::RenderWindow(sf::VideoMode(monitorLength, monitorWidth), "Tanks");
+		window = new sf::RenderWindow(sf::VideoMode(monitorLength, monitorWidth), "BomberMan");
 		
 	}
 	
-	void drawWall(Wall **wall, int **ary)
+void GUI::drawWall(Wall **wall, int **ary)
 	{
 		
 		sf::RectangleShape line(sf::Vector2f(20 , 30));
@@ -54,11 +41,11 @@ public:
 		}
 	}
 	
-	void drawBomberman(BomberMan *Man, bool iself)
+void GUI::drawBomberman(BomberMan *Man, bool iself)
 	{
 		if(iself == true)
 		{		sf::Texture texture1;
-				if(!texture1.loadFromFile("/home/fateme/Desktop/bomb/images/p3.png")){}
+				if(!texture1.loadFromFile("/home/fateme/Desktop/11/1.png")){}
 				sf::Sprite texture1sprite1(texture1);
 				texture1sprite1.setTexture(texture1);
 				texture1sprite1.setPosition(Man->getPosition()->x, Man->getPosition()->y);
@@ -66,7 +53,7 @@ public:
 		}		
 	}
 	
-	void drawBomb(Bomb* bomb)
+/*void GUI::drawBomb(Bomb* bomb)
 	{
 		sf::Texture texture1;
 		if(!texture1.loadFromFile("/home/samin/Desktop/new_project/images/p13.png")){}
@@ -74,17 +61,17 @@ public:
 		texture1sprite1.setTexture(texture1);
 		texture1sprite1.setPosition(bomb->getPosition()->x, bomb->getPosition()->y);
 		window->draw(texture1sprite1);	
-	}	
+	}	*/
 				
 	 ///////////////////////////////////////////////////////// just header
-	void brusting(Bomb* bomb)
+/*void GUI::brusting(Bomb* bomb)
 	{
 		bomb->burstFlag = 0;
-	} ///////////////////////////////////////////////////////////////////////// just header .... please write graphic part!!
+	}*/ ///////////////////////////////////////////////////////////////////////// just header .... please write graphic part!!
 	
-	void show(World *world)
+void GUI::show(World *world)
 	{
-		window->clear(sf::Color(255,255,255));
+		window->clear(sf::Color(0,200,0));
 		drawWall(world->getWall(), world->getAry());
 		
 		drawBomberman(world->getupMan(), true);
@@ -93,19 +80,19 @@ public:
 		window->display();
 	}
 
-	bool pollEvent()
+bool GUI::pollEvent()
 	{
 		if (window->pollEvent(event))
 			return true;
 	}
 
-	sf::Event::EventType getEventType()
+sf::Event::EventType GUI::getEventType()
 	{
 		return event.type;
 	}
 
-	void close()
+void GUI::close()
 	{
 		window->close();
 	}
-};
+

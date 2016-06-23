@@ -1,54 +1,44 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include "Vector.cpp"
-using namespace std;
+#include "BomberMan.h"
 
-class BomberMan
-{
-	private:
-		int life;
-		Vector *position;
-		float velocity;
-		string face;
-	public:
-		BomberMan(){
-			position = new Vector();
-			}
-		void setPosition(float x, float y)
+
+		BomberMan::BomberMan()
+		{
+			position = new Position();
+		}
+		void BomberMan::setPosition(float x, float y)
 		{
 			position->x = x;
 			position->y = y;
 		}
-		void setFace(string face)
+		void BomberMan::setFace(string face)
 		{
 			this->face = face;
 		}
-		void setLife(int life)
+		void BomberMan::setLife(int life)
 		{
 			this->life = life;
 		}
-		void setVelocity(float velocity)
+		void BomberMan::setVelocity(float velocity)
 		{
 			this->velocity = velocity;
 		}
 		
-		Vector *getPosition()
+		Position* BomberMan::getPosition()
 		{
 			return position;
 		}
-		int getLife()
+		int BomberMan::getLife()
 		{
 			return life;
 		}
-		string getFace()
+		string BomberMan::getFace()
 		{
 			return face;
 		}
-		float getVelocity()
+		float BomberMan::getVelocity()
 		{
 			return velocity;
 		}
 		
-};
+
 

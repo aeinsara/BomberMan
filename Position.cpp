@@ -1,13 +1,9 @@
+#include "Position.h"
+#include <iostream>
+using namespace std;
 
-class Position
+Position::Position()
 {
-public:
-	float x;
-	float y;
-	
-	Position()
-	{
-		x = 0;
-		y = 0;
-	}
-};
+	x = 0;
+	y = 0;
+}

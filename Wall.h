@@ -1,5 +1,6 @@
-#include "Position.cpp"
-
+#ifndef __WALL_H__
+#define __WALL_H__
+#include "BomberMan.h"
 class Wall
 {
 protected:
@@ -9,3 +10,4 @@ public:
 	void setPosition(float x, float y);	
 	Position *getPosition();
 };
+#endif

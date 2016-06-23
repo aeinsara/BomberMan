@@ -1,5 +1,7 @@
+#ifndef __MANAGER_H__
+#define __MANAGER_H__
 #include "GUI.h"
-#include "World.h"
+
 class Manager
 {
 private:
@@ -11,3 +13,4 @@ public:
 	void run();
 	void handleGame();
 };
+#endif
