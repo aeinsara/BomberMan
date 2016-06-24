@@ -1,5 +1,6 @@
 #include "GUI.h"
 #include <iostream>
+#include <string.h>
 
 GUI::GUI()
 	{

@@ -1,4 +1,3 @@
-
 # Makefile for BomberMam
 
 CXX = g++
@@ -35,8 +34,4 @@ clean:
 
 touch:
 	$(TOUCH) $(wildcard *)
-	
-	
-
-
 
