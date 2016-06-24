@@ -1,6 +1,7 @@
 #include "Manager_server.h"
 #include <iostream>
 #include "Server.h"
+#include "SocketException.h"
 #include <string>
 
 
@@ -111,39 +112,39 @@ void Manager::handleGame()
 {
 	Position *pos = world->getupMan()->getPosition();
 	
+	
+	
 	//.....................................* server *.....................................
-		
- std::cout << "running....\n";
+	
+	std::string serverData = " ";
+	std::string clientData ;
+	
+	ServerSocket new_sock;
+/*
+	std::cout << "running....\n";
 
- // try
-  //  {
+  try
+    {
       // Create the socket
       ServerSocket server ( 30000 );
 
-      while ( true )
-	{
 
-	  ServerSocket new_sock;
 	  server.accept ( new_sock );
 
-	//  try
-	  //  {
-	      while ( true )
-		{
-		  std::string data;
-		  new_sock >> data;
-		  new_sock << data;
-		}
-	   // }
-	  //catch ( SocketException& ) {}
+	  try
+	    {
+		  new_sock >> clientData;
+		  new_sock << serverData;
+	    }
+	  catch ( SocketException& ) {}
 
-	}
-    //}
-  //catch ( SocketException& e )
-    //{
-    //  std::cout << "Exception was caught:" << e.description() << "\nExiting.\n";
-    //}
 	
+    }
+  catch ( SocketException& e )
+    {
+      std::cout << "Exception was caught:" << e.description() << "\nExiting.\n";
+    }
+	*/
 	//.................................* end of server *..................................
 		
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -153,6 +154,7 @@ void Manager::handleGame()
 				pos->y+=5;
 				
 				//std::cout<<pos->x<<"   "<<pos->y<<endl<<"a   "<<a<<endl;
+				serverData = "Down";
 		}
 		
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -161,8 +163,8 @@ void Manager::handleGame()
 			if(a2 == true)
 				pos->y-=5;
 				
-				std::cout<<pos->x<<"  "<<pos->y<<endl;
-				
+//				std::cout<<pos->x<<"  "<<pos->y<<endl;	
+				serverData = "Up";				
 		}
 		
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -170,8 +172,8 @@ void Manager::handleGame()
 			bool a3 = interface3(world->getWall(), world->getupMan()->getPosition(), world->getAry());	
 			if(a3 == true)				
 				pos->x+=5;
-				std::cout<<pos->x<<"  "<<pos->y<<endl;	
-								
+//				std::cout<<pos->x<<"  "<<pos->y<<endl;	
+				serverData = "Right";										
 		}
 		
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -179,12 +181,48 @@ void Manager::handleGame()
 			bool a4 = interface4(world->getWall(), world->getupMan()->getPosition(), world->getAry());
 			if(a4 == true)
 				pos->x-=5;
-				std::cout<<pos->x<<"  "<<pos->y<<endl;	
-					
+//				std::cout<<pos->x<<"  "<<pos->y<<endl;	
+				serverData = "Left";						
 		}
 		
 			
 		world->getupMan()->setPosition(pos->x, pos->y);
 		
+		
+		
+
+	//.....................................* server *.....................................
+/*	
+	std::string serverData = " ";
+	std::string clientData ;
+	
+	ServerSocket new_sock;
+*/
+	std::cout << "running....\n";
+
+  try
+    {
+      // Create the socket
+      ServerSocket server ( 30000 );
+
+
+	  server.accept ( new_sock );
+
+	  try
+	    {
+		  new_sock >> clientData;
+		  new_sock << serverData;
+	    }
+	  catch ( SocketException& ) {}
+
+	
+    }
+  catch ( SocketException& e )
+    {
+      std::cout << "Exception was caught:" << e.description() << "\nExiting.\n";
+    }
+	
+	//.................................* end of server *..................................
+				
 }
 
