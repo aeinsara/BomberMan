@@ -110,12 +110,43 @@ void Manager::run()
 void Manager::handleGame()
 {
 	Position *pos = world->getupMan()->getPosition();
+	
+	
+	
+		//............................................ * client *...................................
+		std::string client_data = " ";
+		
+		ClientSocket client_socket ( "172.18.208.192", 30000 );
+		
+/*		 try
+		{
+			std::string server_data;
+
+			try
+			{
+				//client_socket << client_data;
+				client_socket >> server_data;
+			}
+			catch ( SocketException& ) {}
+
+		std::cout << "We received this response from the server : \t" << server_data << "\n";;
+
+		}
+		catch ( SocketException& e )
+		{
+			std::cout << "Exception was caught:" << e.description() << "\n";
+		}*/
+	
+		//............................................ * end of client *...................................	
+
 		
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
 			bool a = interface(world->getWall(), world->getupMan()->getPosition(), world->getAry());
 			if(a == true)
 				pos->y+=5;
+				
+			client_data = "Down";
 				
 				//std::cout<<pos->x<<"   "<<pos->y<<endl<<"a   "<<a<<endl;
 		}
@@ -126,7 +157,9 @@ void Manager::handleGame()
 			if(a2 == true)
 				pos->y-=5;
 				
-				std::cout<<pos->x<<"  "<<pos->y<<endl;
+			client_data = "Up";
+							
+				//std::cout<<pos->x<<"  "<<pos->y<<endl;
 				
 		}
 		
@@ -135,7 +168,10 @@ void Manager::handleGame()
 			bool a3 = interface3(world->getWall(), world->getupMan()->getPosition(), world->getAry());	
 			if(a3 == true)				
 				pos->x+=5;
-				std::cout<<pos->x<<"  "<<pos->y<<endl;	
+
+			client_data = "Right";
+				
+				//std::cout<<pos->x<<"  "<<pos->y<<endl;	
 								
 		}
 		
@@ -144,7 +180,10 @@ void Manager::handleGame()
 			bool a4 = interface4(world->getWall(), world->getupMan()->getPosition(), world->getAry());
 			if(a4 == true)
 				pos->x-=5;
-				std::cout<<pos->x<<"  "<<pos->y<<endl;	
+				
+			client_data = "Left";				
+				
+			//	std::cout<<pos->x<<"  "<<pos->y<<endl;	
 					
 		}
 		
@@ -152,22 +191,21 @@ void Manager::handleGame()
 		world->getupMan()->setPosition(pos->x, pos->y);
 		
 		//............................................ * client *...................................
-		
 		 try
 		{
 
-			ClientSocket client_socket ( "localhost", 30000 );
+			//ClientSocket client_socket ( "172.18.208.192", 30000 );
 
-			std::string reply;
+			std::string server_data;
 
 			try
 			{
-				client_socket << "Test message.";
-				client_socket >> reply;
+				client_socket << client_data;
+				client_socket >> server_data;
 			}
 			catch ( SocketException& ) {}
 
-		std::cout << "We received this response from the server:\n\"" << reply << "\"\n";;
+		std::cout << "We send this response : \t " << server_data << "\n";;
 
 		}
 		catch ( SocketException& e )
@@ -175,7 +213,7 @@ void Manager::handleGame()
 			std::cout << "Exception was caught:" << e.description() << "\n";
 		}
 	
-	
 		//............................................ * end of client *...................................	
+
 }
 
