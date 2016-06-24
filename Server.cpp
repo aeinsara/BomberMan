@@ -3,7 +3,6 @@
 #include "Server.h"
 #include "SocketException.h"
 
-
 ServerSocket::ServerSocket ( int port )
 {
   if ( ! Socket::create() )
