@@ -3,8 +3,8 @@
 
 GUI::GUI()
 	{
-		monitorLength = 612;
-		monitorWidth = 612;
+		monitorLength = 561;
+		monitorWidth = 544;
 
 		window = new sf::RenderWindow(sf::VideoMode(monitorLength, monitorWidth), "BomberMan");
 		
@@ -23,7 +23,7 @@ void GUI::drawWall(Wall **wall, int **ary)
 				if(ary[i][j] == 1)
 				{		
 					sf::Texture texture1;
-					if(!texture1.loadFromFile("/home/fateme/Desktop/bomb/images/q1.PNG")){}
+					if(!texture1.loadFromFile("/home/aeinsara/Desktop/firstNetwork/111/q1.PNG")){}
 					sf::Sprite texture1sprite1(texture1);
 					texture1sprite1.setTexture(texture1);
 					texture1sprite1.setPosition(wall[i][j].getPosition()->x, wall[i][j].getPosition()->y );
@@ -32,7 +32,7 @@ void GUI::drawWall(Wall **wall, int **ary)
 			
 				if(ary[i][j] == 2){
 				sf::Texture texture2;
-				if(!texture2.loadFromFile("/home/fateme/Desktop/bomb/images/q3.PNG")){}
+				if(!texture2.loadFromFile("/home/aeinsara/Desktop/firstNetwork/111/q3.PNG")){}
 				sf::Sprite texture1sprite2(texture2);
 				texture1sprite2.setTexture(texture2);
 				texture1sprite2.setPosition(wall[i][j].getPosition()->x, wall[i][j].getPosition()->y );
@@ -45,7 +45,7 @@ void GUI::drawBomberman(BomberMan *Man, bool iself)
 	{
 		if(iself == true)
 		{		sf::Texture texture1;
-				if(!texture1.loadFromFile("/home/fateme/Desktop/11/1.png")){}
+				if(!texture1.loadFromFile("/home/aeinsara/Desktop/firstNetwork/111/man.png")){}
 				sf::Sprite texture1sprite1(texture1);
 				texture1sprite1.setTexture(texture1);
 				texture1sprite1.setPosition(Man->getPosition()->x, Man->getPosition()->y);

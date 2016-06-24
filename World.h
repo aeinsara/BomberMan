@@ -1,6 +1,8 @@
-#include "Wall.h"
-#include "Bomb.h"
+#ifndef __WORLD_H__
+#define __WORLD_H__
 
+#include "Wall.h"
+//#include "Bomb.h"
 class World
 {
 private:
@@ -9,8 +11,8 @@ private:
 	BomberMan *upMan;
 	BomberMan *downMan;
 	
-	Bomb* upBomb(0);
-	Bomb* downBomb(0);
+	//Bomb* upBomb(0);
+	//Bomb* downBomb(0);
 	
 	int **ary;
 	float mWorldLength;
@@ -26,6 +28,7 @@ public:
 	BomberMan *getupMan();
 	BomberMan *getdownMan();
 	
-	Bomb *getupBomb();
-	Bomb *getdownBomb();
+	//Bomb *getupBomb();
+	//Bomb *getdownBomb();
 };
+#endif

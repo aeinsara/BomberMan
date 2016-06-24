@@ -1,4 +1,4 @@
-#include "World.h"
+#include "World.h" 
 World::World()
 {
 	ary = new int*[17];
@@ -88,12 +88,15 @@ World::World()
 		n+=32;
 		m=33;
 	}
-	
+	ary[1][1] = 0;
+	ary[1][2] = 0;
+	ary[2][1] = 0;
+	ary[2][2] = 0;
 	mWorldLength = 100.0f;
 	mWorldWidth = 100.0f;
 		
 	upMan = new BomberMan();
-	upMan->setPosition(30, 20);
+	upMan->setPosition(34, 33);
 	upMan->setFace("right");
 	upMan->setVelocity(4);
 	upMan->setLife(100);
@@ -104,8 +107,8 @@ World::World()
 	downMan->setVelocity(4);
 	downMan->setLife(100);
 		
-	upBomb = new Bomb();
-	downBomb = new Bomb();
+	//upBomb = new Bomb();
+//	downBomb = new Bomb();
 		
 }
 
@@ -129,7 +132,7 @@ BomberMan* World::getdownMan()
 	return downMan;
 }
 		
-Bomb* World::getupBomb()
+/*Bomb* World::getupBomb()
 {
 	return upBomb;
 }
@@ -137,4 +140,4 @@ Bomb* World::getupBomb()
 Bomb* World::getdownBomb()
 {
 	return downBomb;
-}
+}*/

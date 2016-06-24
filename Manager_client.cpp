@@ -1,4 +1,9 @@
-#include "Manager.h"
+#include "Manager_client.h"
+#include "Client.h"
+#include "SocketException.h"
+#include <iostream>
+#include <string>
+
 //#include "World.h"
 
 
@@ -114,6 +119,7 @@ void Manager::handleGame()
 				
 				//std::cout<<pos->x<<"   "<<pos->y<<endl<<"a   "<<a<<endl;
 		}
+		
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
 			bool a2 = interface2(world->getWall(), world->getupMan()->getPosition(), world->getAry());
@@ -145,5 +151,31 @@ void Manager::handleGame()
 			
 		world->getupMan()->setPosition(pos->x, pos->y);
 		
+		//............................................ * client *...................................
+		
+		 try
+		{
+
+			ClientSocket client_socket ( "localhost", 30000 );
+
+			std::string reply;
+
+			try
+			{
+				client_socket << "Test message.";
+				client_socket >> reply;
+			}
+			catch ( SocketException& ) {}
+
+		std::cout << "We received this response from the server:\n\"" << reply << "\"\n";;
+
+		}
+		catch ( SocketException& e )
+		{
+			std::cout << "Exception was caught:" << e.description() << "\n";
+		}
+	
+	
+		//............................................ * end of client *...................................	
 }
 
