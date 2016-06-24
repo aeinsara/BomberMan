@@ -1,8 +1,8 @@
 #ifndef __GUI_H__
 #define __GUI_H__
 //#define SFML_KEYBOARD_HPP
-//#include <iostream>
-//#include <cmath>
+#include <iostream>
+#include <cmath>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Export.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -24,7 +24,7 @@ public:
 	
 	void drawBomberman(BomberMan *Man, bool iself);
 	
-	//void drawBomb(Bomb* bomb);
+	void drawBomb(Bomb* bomb);
 
 	//void brusting(Bomb* bomb);
 	

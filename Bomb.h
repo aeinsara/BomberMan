@@ -1,22 +1,22 @@
-#include <time.h>
-#include "Position.cpp"
+#include "BomberMan.h"
+#include <ctime>
+#include <iostream>
+using namespace std;
+class Bomb
+{
+	private:
+		Position *position;
+		time_t time;
+		int degree;
+	public:
+	Bomb();
+	void setPosition(float x, float y);
+	void setDegree(int degree);
+	int **Explosion(int **ary, int i, int j);
+	//void setTime(time_t time);
+	
+	Position *getPosition();
+	int getDegree();	
+	//time_t getTime();
 
-class Bomb{
- private:
-	Position* pos;
-	int power;
-	time_t t;
- public:
-	bool burstFlag = 0; ///////////////////// for bursting
-	
-	Bomb(int power);
-	
-	Position* getPosition();
-	int getPower();
-	
-	void setPosition(int x, int y);
-	void setPower(int power);
-	
-	void setTime();
-	time_t getTime();
-}
+};

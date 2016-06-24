@@ -1,29 +1,40 @@
 #include "Bomb.h"
-Bomb::Bomb(int power){
-	pos = new Position();
-	this->power = power;
+
+Bomb::Bomb()
+{
+	position = new Position();
 }
-	
-Position* Bomb::getPosition(){
-	return pos;
+void Bomb::setPosition(float x, float y)
+{
+	position->x = x;
+	position->y = y;
 }
-	
-int Bomb::getPower(){
-	return power;
+void Bomb::setDegree(int degree)
+{
+	this->degree = degree;
 }
-	
-void Bomb::setPosition(int x, int y){
-	pos->x = x;
-	pos->y = y;
-}
-	
-void Bomb::setPower(int power){
-	this->power = power;
+int** Bomb::Explosion(int **ary, int i, int j)
+{
+
+	for( int m = i-degree; m <=i+degree ;m++)
+	for( int n = j-degree; n <=j+ degree ;n++)
+			if(ary[m][n] == 2 && (m == i || n == j))
+				ary[m][n] = 0;
+				
+		
+		return ary;	
 }
 
-void Bomb::setTime(){
-	t = time(0);
+Position* Bomb::getPosition()
+{
+	return position;
 }
-time_t Bomb::getTime(){
-	return t;
+int Bomb::getDegree()
+{
+	return degree;
 }
+/*time_t Bomb::getTime()
+{
+	return time;
+}
+*/

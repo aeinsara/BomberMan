@@ -2,7 +2,7 @@
 #define __BOMBERMAN_H__
 #include "Position.h"
 #include <iostream>
-#include <string.h>
+#include <string>
 using namespace std;
 class BomberMan
 {

@@ -1,6 +1,7 @@
 #ifndef __WALL_H__
 #define __WALL_H__
-#include "BomberMan.h"
+//#include "BomberMan.h"
+#include "Bomb.h"
 class Wall
 {
 protected:

@@ -11,7 +11,7 @@ private:
 	BomberMan *upMan;
 	BomberMan *downMan;
 	
-	//Bomb* upBomb(0);
+	Bomb* upBomb;
 	//Bomb* downBomb(0);
 	
 	int **ary;
@@ -20,7 +20,7 @@ private:
 
 public:
 	World();
-
+	void setAry(int **ary);
 	int **getAry();
 	
 	Wall **getWall();
@@ -28,7 +28,7 @@ public:
 	BomberMan *getupMan();
 	BomberMan *getdownMan();
 	
-	//Bomb *getupBomb();
+	Bomb *getupBomb();
 	//Bomb *getdownBomb();
 };
 #endif
