@@ -12,7 +12,7 @@ private:
 	BomberMan *downMan;
 	
 	Bomb* upBomb;
-	//Bomb* downBomb(0);
+	Bomb* downBomb;
 	
 	int **ary;
 	float mWorldLength;
@@ -29,6 +29,6 @@ public:
 	BomberMan *getdownMan();
 	
 	Bomb *getupBomb();
-	//Bomb *getdownBomb();
+	Bomb *getdownBomb();
 };
 #endif

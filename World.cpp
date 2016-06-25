@@ -5,23 +5,34 @@ World::World()
 	for(int i=0; i<17;i++)
 		ary[i] = new int[17];
 
-	for(int i=0 ;i<17;i++)
-	for(int j =0 ;j<17 ; j++)
+	for(int i=1 ;i<16 ;i++)
 	{
-		if(i==0 || i==16 || j ==0 || j ==16)
-			ary[i][j]=1;
+		for(int j=1 ;j<16 ;j++)
+		{
+			if(j%2 == 0)
+				ary[i][j] = 2;
+			else
+			{
+				if(i%2 == 0)
+					ary[i][j] = 1;
+				else
+					ary[i][j] = 2;
+			}
+		}
 	}
-	
-	for(int i=1 ;i<16;i++)
-	for(int j =1 ;j<16 ; j++)
-	{
-		if(j%2 == 1)
-			ary[i][j] = 1;
-		if(j%2 == 0 && i%2==0)
-			ary[i][j] =1;
-		else
-			ary[i][j]=2;
-	}	
+		
+	for(int i =0 ;i<17 ;i++)
+		ary[0][i] = 1;
+			
+	for(int i =0 ;i<17 ;i++)
+		ary[16][i] = 1;
+			
+	for(int i =0 ;i<17 ;i++)
+		ary[i][0] = 1;
+			
+	for(int i =0 ;i<17 ;i++)
+		ary[i][16] = 1;		
+		
 	wall = new Wall*[17];
 
 	for(int i =0 ;i<17 ;i++)
@@ -81,6 +92,14 @@ World::World()
 	ary[1][2] = 0;
 	ary[2][1] = 0;
 	ary[2][2] = 0;
+
+///////////
+	ary[15][15] = 0;
+	ary[14][15] = 0;
+	ary[14][14] = 0;
+	ary[15][14] = 0;
+//////////
+	
 	mWorldLength = 100.0f;
 	mWorldWidth = 100.0f;
 		
@@ -91,8 +110,8 @@ World::World()
 	upMan->setLife(100);
 		
 	downMan = new BomberMan();
-	downMan->setPosition(570, 570);
-	downMan->setFace("right");
+	downMan->setPosition(495, 470);
+	downMan->setFace("front");
 	downMan->setVelocity(4);
 	downMan->setLife(100);
 		
@@ -101,9 +120,13 @@ World::World()
 	upBomb->setDegree(1);
 	upBomb->Explosion(ary,3, 3);
 	//upBomb->setTime(Null);
+		
+	downBomb = new Bomb();
+	downBomb->setPosition(570, 570);
+	downBomb->setDegree(1);
+	downBomb->Explosion(ary,3, 3);
+	//downBomb->setTime(Null);
 
-	
-	//downBomb = new Bomb();
 		
 }
 void ::World::setAry(int **ary)
@@ -134,8 +157,8 @@ Bomb* World::getupBomb()
 {
 	return upBomb;
 }
-/*	
+
 Bomb* World::getdownBomb()
 {
 	return downBomb;
-}*/
+}
