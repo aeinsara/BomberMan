@@ -23,7 +23,7 @@ void GUI::drawWall(Wall **wall, int **ary)
 				if(ary[i][j] == 1)
 				{		
 					sf::Texture texture1;
-					if(!texture1.loadFromFile("/home/aeinsara/Desktop/firstNetwork/Bomb_client2/q1.PNG")){}
+					if(!texture1.loadFromFile("/home/fateme/Desktop/bomb/images/q1.PNG")){}
 					sf::Sprite texture1sprite1(texture1);
 					texture1sprite1.setTexture(texture1);
 					texture1sprite1.setPosition(wall[i][j].getPosition()->x, wall[i][j].getPosition()->y );
@@ -32,7 +32,7 @@ void GUI::drawWall(Wall **wall, int **ary)
 			
 				if(ary[i][j] == 2){
 				sf::Texture texture2;
-				if(!texture2.loadFromFile("/home/aeinsara/Desktop/firstNetwork/Bomb_client2/q3.PNG")){}
+				if(!texture2.loadFromFile("/home/fateme/Desktop/bomb/images/q3.PNG")){}
 				sf::Sprite texture1sprite2(texture2);
 				texture1sprite2.setTexture(texture2);
 				texture1sprite2.setPosition(wall[i][j].getPosition()->x, wall[i][j].getPosition()->y );
@@ -47,10 +47,10 @@ void GUI::drawBomberman(BomberMan *Man, bool iself)
 		{		sf::Texture texture1;
 				string address[4];
 				string face;
-				address[0] = "/home/aeinsara/Desktop/firstNetwork/Bomb_client2/manFront.png";
-				address[1] = "/home/aeinsara/Desktop/firstNetwork/Bomb_client2/manRight.png";
-				address[2] = "/home/aeinsara/Desktop/firstNetwork/Bomb_client2/manLeft.png";
-				address[3] = "/home/aeinsara/Desktop/firstNetwork/Bomb_client2/manBack.PNG";
+				address[0] = "/home/fateme/Desktop/11/manFront.png";
+				address[1] = "/home/fateme/Desktop/11/manRight.png";
+				address[2] = "/home/fateme/Desktop/11/manLeft.png";
+				address[3] = "/home/fateme/Desktop/11/manBack.PNG";
 				if("front" == Man->getFace())
 					face = address[0];
 				if("right" == Man->getFace())
@@ -64,42 +64,13 @@ void GUI::drawBomberman(BomberMan *Man, bool iself)
 				texture1sprite1.setTexture(texture1);
 				texture1sprite1.setPosition(Man->getPosition()->x, Man->getPosition()->y);
 				window->draw(texture1sprite1);
-		}
-		
-///////////////////////////***********
-		
-		else
-		{
-					sf::Texture texture1;
-				string address[4];
-				string face;
-				address[0] = "/home/aeinsara/Desktop/firstNetwork/Bomb_client2/manFront.png";
-				address[1] = "/home/aeinsara/Desktop/firstNetwork/Bomb_client2/manRight.png";
-				address[2] = "/home/aeinsara/Desktop/firstNetwork/Bomb_client2/manLeft.png";
-				address[3] = "/home/aeinsara/Desktop/firstNetwork/Bomb_client2/manBack.PNG";
-				if("front" == Man->getFace())
-					face = address[0];
-				if("right" == Man->getFace())
-					face = address[1];
-				if("left" == Man->getFace())
-					face = address[2];
-				if("back" == Man->getFace())
-					face = address[3];		
-				if(!texture1.loadFromFile(face)){}
-				sf::Sprite texture1sprite1(texture1);
-				texture1sprite1.setTexture(texture1);
-				texture1sprite1.setPosition(Man->getPosition()->x, Man->getPosition()->y);
-				window->draw(texture1sprite1);
-		}	
-
-///////////////////////////***********
-	
+		}		
 	}
 	
 void GUI::drawBomb(Bomb* bomb)
 	{
 		sf::Texture texture;
-		if(!texture.loadFromFile("/home/aeinsara/Desktop/firstNetwork/Bomb_client2/bomb.png")){}
+		if(!texture.loadFromFile("/home/fateme/Desktop/11/bomb.png")){}
 		sf::Sprite texture1sprite(texture);
 		texture1sprite.setTexture(texture);
 		texture1sprite.setPosition(bomb->getPosition()->x, bomb->getPosition()->y);
@@ -121,8 +92,7 @@ void GUI::show(World *world)
 		drawBomberman(world->getdownMan(), false);
 		
 		drawBomb(world->getupBomb());
-		drawBomb(world->getdownBomb());	
-			
+		
 		window->display();
 	}
 
