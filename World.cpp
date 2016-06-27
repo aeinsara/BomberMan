@@ -1,148 +1,120 @@
 #include "World.h" 
+
 World::World()
 {
-	ary = new int*[17];
-	for(int i=0; i<17;i++)
-		ary[i] = new int[17];
-
-	for(int i=1 ;i<16 ;i++)
+	wall = new Wall**[17];
+	brick = new Brick*[17];
+	
+	for(int i=0 ;i<17 ;i++)
 	{
-		for(int j=1 ;j<16 ;j++)
+		wall[i] = new Wall*[17];
+		brick[i] = new Brick[17];
+	}
+	for(int i=0 ;i<17 ;i++)
+	{
+		wall[0][i] = new Wall();
+		wall[i][0] = new Wall();
+		wall[16][i] = new Wall();
+		wall[i][16] = new Wall();
+	}
+	for(int i=1;i<16;i++)
+	for(int j=1;j<16;j++)
+	{
+		if(j%2 == 1)
+			wall[i][j] = new Wall();
+		if(j%2 == 0 && i%2==0)
+			wall[i][j] = new Wall();			
+		else
 		{
-			if(j%2 == 0)
-				ary[i][j] = 2;
-			else
-			{
-				if(i%2 == 0)
-					ary[i][j] = 1;
-				else
-					ary[i][j] = 2;
-			}
+			wall[i][j] = new Brick();
+			wall[i][j] = &brick[i][j];
 		}
 	}
-		
-	for(int i =0 ;i<17 ;i++)
-		ary[0][i] = 1;
-			
-	for(int i =0 ;i<17 ;i++)
-		ary[16][i] = 1;
-			
-	for(int i =0 ;i<17 ;i++)
-		ary[i][0] = 1;
-			
-	for(int i =0 ;i<17 ;i++)
-		ary[i][16] = 1;		
-		
-	wall = new Wall*[17];
-
-	for(int i =0 ;i<17 ;i++)
-	{
-		wall[i] = new Wall[17];
-	}
-				
 	int m=0;
 	int n=0;
 	
 	for(int i =0 ;i<17 ;i++)
 	{
-		wall[0][i].getPosition()->x = m;
-		wall[0][i].getPosition()->y = n;
-		m+=33;
+		wall[0][i]->setPosition(m, n);
+		wall[16][i]->setPosition(m, 512);	
+		wall[i][16]->setPosition(512, m);
+		wall[i][0]->setPosition(0, m);	
+		m+=32;
 	}	
-	m=0;
-	
-	for(int i =0 ;i<17 ;i++)
-	{
-		wall[16][i].getPosition()->x = m;
-		wall[16][i].getPosition()->y = 512;
-		m+=33;			
-	}
-	n =0;
 
-	for(int i =0 ;i<17 ;i++)
-	{
-		wall[i][16].getPosition()->x = 528;
-		wall[i][16].getPosition()->y = n;
-		n+=32;			
-	}
-	n =0;
-	
-	for(int i =0 ;i<17 ;i++)
-	{
-		wall[i][0].getPosition()->x = 0;
-		wall[i][0].getPosition()->y = n;
-		n+=32;			
-	}
-	
-	m = 33;
+	m = 32;
 	n = 32;
 
-	for(int i=1 ; i<16;i++)
+	for(int i=1; i<16;i++)
 	{
 		for(int j=1; j<16;j++)
 		{
-			wall[i][j].getPosition()->x = m;
-			wall[i][j].getPosition()->y = n;
-			m+=33;
+			wall[i][j]->setPosition(m, n) ;
+			m+=32;
 		}
 		n+=32;
-		m=33;
+		m=32;
 	}
-	ary[1][1] = 0;
-	ary[1][2] = 0;
-	ary[2][1] = 0;
-	ary[2][2] = 0;
-
-///////////
-	ary[15][15] = 0;
-	ary[14][15] = 0;
-	ary[14][14] = 0;
-	ary[15][14] = 0;
-//////////
+	for(int i=0 ;i<17 ;i++)
+	for(int j=0 ;j<17 ;j++)
+		wall[i][j]->setIsempty(0);
 	
+	wall[1][1]->setIsempty(1);
+	wall[1][2]->setIsempty(1);
+	wall[2][1]->setIsempty(1);
+
+	wall[15][15]->setIsempty(1);
+	wall[15][14]->setIsempty(1);
+	wall[14][15]->setIsempty(1);
+
+	
+
+	brick[6][3].setType("gift");
+	brick[9][5].setType("gift");		
+	brick[13][1].setType("gift");
+	brick[3][6].setType("gift");
+	brick[13][11].setType("gift");
+	brick[7][11].setType("gift");
+	brick[3][10].setType("gift");
+	brick[5][14].setType("gift");
+	brick[12][7].setType("gift");
+	brick[10][13].setType("gift");
 	mWorldLength = 100.0f;
 	mWorldWidth = 100.0f;
 		
 	upMan = new BomberMan();
-	upMan->setPosition(34, 33);
+	upMan->setPosition(32, 32);
 	upMan->setFace("front");
 	upMan->setVelocity(4);
 	upMan->setLife(100);
 		
 	downMan = new BomberMan();
-	downMan->setPosition(495, 470);
+	downMan->setPosition(480, 480);
 	downMan->setFace("front");
 	downMan->setVelocity(4);
 	downMan->setLife(100);
 		
 	upBomb = new Bomb();
-	upBomb->setPosition(100, 100);
+	upBomb->setPosition(100, 100, "front");
 	upBomb->setDegree(1);
-	upBomb->Explosion(ary,3, 3);
-	//upBomb->setTime(Null);
-		
+	
 	downBomb = new Bomb();
-	downBomb->setPosition(570, 570);
-	downBomb->setDegree(1);
-	downBomb->Explosion(ary,3, 3);
-	//downBomb->setTime(Null);
-
-		
+	downBomb->setPosition(480, 480, "front");
+	downBomb->setDegree(1);	
 }
-void ::World::setAry(int **ary)
+void World::setBrick(Brick **brick)
 {
-	this->ary = ary;
-}
-int** World::getAry()
-{
-	return ary;
+	this->brick = brick;
 }
 	
-Wall** World::getWall()
+Wall*** World::getWall()
 {
 	return wall;
 }
-		
+Brick** World::getBrick()
+{
+	return brick;
+}		
 BomberMan* World::getupMan()
 {
 	return upMan;
@@ -160,5 +132,6 @@ Bomb* World::getupBomb()
 
 Bomb* World::getdownBomb()
 {
-	return downBomb;
+	return upBomb;
 }
+

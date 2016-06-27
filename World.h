@@ -1,29 +1,27 @@
 #ifndef __WORLD_H__
 #define __WORLD_H__
+#include "Bomb.h"
 
-#include "Wall.h"
-//#include "Bomb.h"
 class World
 {
 private:
-	Wall **wall;
-	
+	Wall ***wall;
+	Brick **brick;
 	BomberMan *upMan;
 	BomberMan *downMan;
 	
 	Bomb* upBomb;
 	Bomb* downBomb;
 	
-	int **ary;
 	float mWorldLength;
 	float mWorldWidth;
 
 public:
 	World();
-	void setAry(int **ary);
-	int **getAry();
+	void setBrick(Brick **brick);
 	
-	Wall **getWall();
+	Wall ***getWall();
+	Brick **getBrick();
 	
 	BomberMan *getupMan();
 	BomberMan *getdownMan();

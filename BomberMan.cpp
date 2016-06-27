@@ -37,6 +37,22 @@ float BomberMan::getVelocity()
 {
 	return velocity;
 }
+bool BomberMan::greeting(Wall *wall)
+{
+	if(((position->x +32 <= wall->getPosition()->x ||
+		position->x >= wall->getPosition()->x+32  ||
+		position->y >= wall->getPosition()->y+32  ||
+		position->y +32 <= wall->getPosition()->y) && 
+		wall->getIsempty() == 0) || wall->getIsempty() == 1 )
+				return false;
+	cout << "samin\n";
+	cout<<"wall  "<< wall->getPosition()->x <<"   "<< wall->getPosition()->y<<endl;
+	cout<<"man	"<<position->x<<"	"<<position->y<<endl;
+	
+	
+	return true;
+	
 		
+}	
 
 

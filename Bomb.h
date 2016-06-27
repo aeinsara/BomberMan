@@ -10,9 +10,9 @@ class Bomb
 		int degree;
 	public:
 	Bomb();
-	void setPosition(float x, float y);
+	void setPosition(float x, float y, string direction);
 	void setDegree(int degree);
-	int **Explosion(int **ary, int i, int j);
+	//Brick **Explosion(Wall ***wall, Brick **brick, int i, int j);
 	//void setTime(time_t time);
 	
 	Position *getPosition();

@@ -1,14 +1,18 @@
 #ifndef __WALL_H__
 #define __WALL_H__
 //#include "BomberMan.h"
-#include "Bomb.h"
+#include "Position.h"
 class Wall
 {
 protected:
 	Position *pos;
+	bool isempty;
 public:
 	Wall();
-	void setPosition(float x, float y);	
-	Position *getPosition();
+	virtual void setIsempty(bool kind);
+	virtual bool getIsempty();
+	virtual void setPosition(float x, float y);	
+	virtual Position *getPosition();
+
 };
 #endif

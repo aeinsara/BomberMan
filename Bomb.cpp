@@ -4,25 +4,34 @@ Bomb::Bomb()
 {
 	position = new Position();
 }
-void Bomb::setPosition(float x, float y)
+
+void Bomb::setPosition(float x, float y, string direction)
 {
+	switch(direction[0])
+	{
+		case 'f':
+			y -= (int)y % 32;
+			break;
+		case 'b':
+			if ((int)y % 32 != 0)
+				y += (32 - ((int)y % 32));
+			break;
+		case 'l':
+			if ((int)x % 32 != 0)
+				x += (32 - ((int)x % 32));
+			break;
+		case 'r':
+			x -= (int)x % 32;
+			break;
+	}
+		
 	position->x = x;
 	position->y = y;
 }
+
 void Bomb::setDegree(int degree)
 {
 	this->degree = degree;
-}
-int** Bomb::Explosion(int **ary, int i, int j)
-{
-
-	for( int m = i-degree; m <=i+degree ;m++)
-	for( int n = j-degree; n <=j+ degree ;n++)
-			if(ary[m][n] == 2 && (m == i || n == j))
-				ary[m][n] = 0;
-				
-		
-		return ary;	
 }
 
 Position* Bomb::getPosition()

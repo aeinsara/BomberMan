@@ -1,6 +1,6 @@
 #ifndef __BOMBERMAN_H__
 #define __BOMBERMAN_H__
-#include "Position.h"
+#include "Brick.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -14,11 +14,8 @@ class BomberMan
 	public:
 		BomberMan();
 		void setPosition(float x, float y);
-		
 		void setFace(string face);
-
 		void setLife(int life);
-
 		void setVelocity(float velocity);
 		
 		Position *getPosition();
@@ -28,7 +25,7 @@ class BomberMan
 		string getFace();
 
 		float getVelocity();
-
+		bool greeting(Wall *wall);
 		
 };
 #endif

@@ -14,3 +14,12 @@ Position* Wall::getPosition()
 {
 	return pos;
 }
+void Wall::setIsempty(bool kind)
+{
+	isempty = kind;
+}
+bool Wall::getIsempty()
+{
+	return isempty;
+}
+
