@@ -19,6 +19,7 @@ private:
 public:
 	World();
 	void setBrick(Brick **brick);
+	//int **getWall();
 	
 	Wall ***getWall();
 	Brick **getBrick();

@@ -1,5 +1,4 @@
 #include "World.h" 
-
 World::World()
 {
 	wall = new Wall**[17];
@@ -62,11 +61,9 @@ World::World()
 	wall[1][1]->setIsempty(1);
 	wall[1][2]->setIsempty(1);
 	wall[2][1]->setIsempty(1);
-
+	wall[14][15]->setIsempty(1);	
 	wall[15][15]->setIsempty(1);
 	wall[15][14]->setIsempty(1);
-	wall[14][15]->setIsempty(1);
-
 	
 
 	brick[6][3].setType("gift");
@@ -90,22 +87,26 @@ World::World()
 		
 	downMan = new BomberMan();
 	downMan->setPosition(480, 480);
-	downMan->setFace("front");
+	downMan->setFace("right");
 	downMan->setVelocity(4);
 	downMan->setLife(100);
 		
 	upBomb = new Bomb();
 	upBomb->setPosition(100, 100, "front");
-	upBomb->setDegree(1);
+	upBomb->setDegree(1);	
 	
 	downBomb = new Bomb();
-	downBomb->setPosition(480, 480, "front");
-	downBomb->setDegree(1);	
+	downBomb->setPosition(100, 100, "front");
+	downBomb->setDegree(1);		
 }
 void World::setBrick(Brick **brick)
 {
 	this->brick = brick;
 }
+/*int** World::getAry()
+{
+	return ary;
+}*/
 	
 Wall*** World::getWall()
 {
@@ -130,8 +131,8 @@ Bomb* World::getupBomb()
 	return upBomb;
 }
 
+		
 Bomb* World::getdownBomb()
 {
-	return upBomb;
+	return downBomb;
 }
-

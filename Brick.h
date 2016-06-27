@@ -1,11 +1,21 @@
+#ifndef __BRICK_H__
+#define __BRICK_H__
 #include "Wall.h"
-
-class Brick : public Wall
+#include <iostream>
+#include <string>
+using namespace std;
+class Brick:public Wall
 {
-private:
-	int type;
-public:
-	Brick() : Wall();
-	void set_type(int type);
-	int get_type();	
+	private:
+		string type;
+	public:
+		Brick();
+		void setPosition(float x, float y);	
+		Position *getPosition();
+		void setIsempty(bool kind);
+		bool getIsempty();
+		void setType(string type);
+		string getType();
 };
+
+#endif

@@ -1,17 +1,31 @@
 #include "Brick.h"
 
-Brick::Brick() : Wall()
+Brick::Brick()
 {
-	type = 0;
 }
-	
-void Brick::set_type(int type)
+void Brick::setType(string type)
 {
 	this->type = type;
 }
-	
-int Brick::get_type()
+string Brick::getType()
 {
 	return type;
-}	
+}
+void Brick::setPosition(float x, float y)
+{
+	pos->x = x;
+	pos->y = y;
+}
 
+Position* Brick::getPosition()
+{
+	return pos;
+}
+void Brick::setIsempty(bool kind)
+{
+	isempty = kind;
+}
+bool Brick::getIsempty()
+{
+	return isempty;
+}
