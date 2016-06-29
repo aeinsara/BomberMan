@@ -7,6 +7,9 @@
 #include <SFML/Window/Export.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include "World.h"
+
+#include "Menu.h"
+
 using namespace sf;
 class GUI
 {
@@ -25,10 +28,16 @@ public:
 	void drawBomberman(BomberMan *Man, bool iself);
 	
 	void drawBomb(Bomb* bomb);
+	
+	int drawMenu();	
+	
+	void drawPause(int flag);
+	
+	void drawAboat(int flag);
 
 	//void brusting(Bomb* bomb);
 	
-	void show(World *world);
+	void show(World *world, int flag);
 
 	bool pollEvent();
 	
