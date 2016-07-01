@@ -1,19 +1,22 @@
-#include "BomberMan.h"
+#include "Brick.h"
 #include <ctime>
 #include <iostream>
+
 using namespace std;
+
 class Bomb
 {
-	private:
-		Position *position;
-		int degree;
-	public:
+private:
+	Position *position;
+	int degree;
+public:
 	Bomb();
 	void setPosition(float x, float y, string direction);
-	void setDegree(int degree);
+	void setDegree();
 	int getDegree();	
-	Wall ***Explosion(Wall ***wall);
+	bool Explosion(Wall ***wall, Position *manPosition);	
 	Position *getPosition();
-	void drawExplosion();
+	
+
 
 };

@@ -3,7 +3,7 @@
 
 CXX = g++
 CFLAGS = -O2 -g -pipe -I.
-LIBS =-lsfml-graphics -lsfml-window -lsfml-system
+LIBS =-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 OBJ_DIR = .
 

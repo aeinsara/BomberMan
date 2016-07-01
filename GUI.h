@@ -1,13 +1,11 @@
 #ifndef __GUI_H__
 #define __GUI_H__
-//#define SFML_KEYBOARD_HPP
-//#include <iostream>
-//#include <cmath>
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Export.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <SFML/Audio.hpp>
 #include "World.h"
-
 #include "Menu.h"
 
 using namespace sf;
@@ -22,20 +20,24 @@ private:
 
 public:
 	GUI();
-	
-	void drawWall(Wall ***wall, Brick **brick);
-	
-	void drawBomberman(BomberMan *Man, bool iself);
-	
-	void drawBomb(Bomb* bomb);
-	
-	int drawMenu();	
+
+	int drawMenu();
 	
 	void drawPause(int flag);
 	
-	void drawAboat(int flag);
+	void drawAbout(int flag);
+	
+	void drawWinner(int flag);
+		
+	void drawWall(Wall ***wall);
+	
+	void drawGift(Brick **brick);
 
-	//void brusting(Bomb* bomb);
+	void drawBomberman(BomberMan *Man, bool iself);
+	
+	void drawBomb(Bomb* bomb);
+
+	//void playMusic();
 	
 	void show(World *world, int flag);
 

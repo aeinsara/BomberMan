@@ -68,17 +68,17 @@ World::World()
 	wall[14][15]->setIsempty(1);
 
 	
-
-	brick[6][3].setType("gift");
-	brick[9][5].setType("gift");		
-	brick[13][1].setType("gift");
-	brick[3][6].setType("gift");
-	brick[13][11].setType("gift");
-	brick[7][11].setType("gift");
-	brick[3][10].setType("gift");
-	brick[5][14].setType("gift");
-	brick[12][7].setType("gift");
-	brick[10][13].setType("gift");
+	brick[6][3].setType("bomb");
+	brick[9][5].setType("fire");		
+	brick[13][1].setType("veloc");
+	brick[3][6].setType("fire");
+	brick[13][11].setType("fire");
+	brick[7][11].setType("fire");
+	brick[3][10].setType("bomb");
+	brick[5][14].setType("veloc");
+	brick[12][7].setType("bomb");
+	brick[10][13].setType("bomb");
+	
 	mWorldLength = 100.0f;
 	mWorldWidth = 100.0f;
 		
@@ -94,13 +94,18 @@ World::World()
 	downMan->setVelocity(4);
 	downMan->setLife(100);
 		
-	upBomb = new Bomb();
-	upBomb->setPosition(100, 100, "front");
-	upBomb->setDegree(1);
-	
-	downBomb = new Bomb();
-	downBomb->setPosition(200, 200, "front");
-	downBomb->setDegree(1);
+	upBomb = new Bomb[4];
+	for(int i =0 ;i<4 ;i++)
+	{
+		upBomb[i].setPosition(32, 32, "front");
+	}	
+	//.........................*creat explotion*
+	//upBomb->Explosion(wall);
+	downBomb = new Bomb[4];
+	for(int i =0 ;i<4 ;i++)
+	{
+		downBomb[i].setPosition(512, 512, "front");
+	}
 	//..............creat explotion ----  fateme--	
 	//downBomb->Explosion(wall)
 }

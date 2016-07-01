@@ -3,6 +3,7 @@
 Bomb::Bomb()
 {
 	position = new Position();
+	degree = 1;
 }
 
 void Bomb::setPosition(float x, float y, string direction)
@@ -29,70 +30,156 @@ void Bomb::setPosition(float x, float y, string direction)
 	position->y = y;
 }
 
-void Bomb::setDegree(int degree)
+void Bomb::setDegree()
 {
-	this->degree = degree;
+	degree++;
+	if(degree>=3)
+		degree = 3;
 }
 
 Position* Bomb::getPosition()
 {
 	return position;
 }
+
 int Bomb::getDegree()
 {
 	return degree;
 }
 
-Wall*** Bomb::Explosion(Wall ***wall)
+
+//.................................* Explosion *...................................
+
+bool Bomb::Explosion(Wall ***wall, Position *manPosition)
 {
-	Brick * b;
+	Brick *brick;
+	bool explosion = true;
+	string type ;
+		
 	int j = position->x/32;
 	int i = position->y/32;
-	for(int m = i-1 ; m>=i-degree ; m--)
+
+	//................* check up *................
+
+	for(int m = i-1; m >= i-degree && m >= 0 && m <= 16; m--)
 	{		
-		b= dynamic_cast <Brick*>(wall[m][j]);
-		if(b != NULL && wall[m][j]->getIsempty() == 0)
+		brick = dynamic_cast <Brick*> (wall[m][j]);
+
+		if(brick != NULL)
+		{
+			type = brick->getType();
+			if(type != "fire" && type != "bomb" && type !="veloc")
+			   brick->setType("f");
+		}
+		else
+			break;
+			
+		if(brick != NULL && wall[m][j]->getIsempty() == 0)
 		{
 			wall[m][j]->setIsempty(1);
+
+			if(type != "fire" && type != "bomb" && type !="veloc")
+				brick->setType("f");
+
 			break;
 		}
-		if(b == NULL)
-			break;
+		
+		if(wall[m][j]->greeting(manPosition, 0) == true)	//dead Man
+			explosion = false;			
 	}
-	for(int m = i+1 ; m<=i+degree ; m++)
-	{		
-		b= dynamic_cast <Brick*>(wall[m][j]);
-		if(b != NULL &&  wall[m][j]->getIsempty() == 0)
+
+	//................* check down *................
+		
+	for(int m = i+1 ; m <= i+degree && m >= 0 && m <= 16 ; m++)
+	{	
+		brick = dynamic_cast <Brick*> (wall[m][j]);
+
+		if(brick != NULL)
+		{
+			type = brick->getType();
+			if(type != "fire" && type != "bomb" && type !="veloc")
+				brick->setType("f");			
+		}
+		else
+			break;
+		
+		if(brick != NULL &&  wall[m][j]->getIsempty() == 0)
 		{		
 			wall[m][j]->setIsempty(1);
+			
+			if(type != "fire" && type != "bomb" && type !="veloc")
+				brick->setType("f");
+			
 			break;
 		}
-		if(b == NULL)
-			break;		
-	}	
-	
-	for(int m = j-1 ; m>=j-degree ; m--)
-	{		
-		b= dynamic_cast <Brick*>(wall[i][m]);
-		if(b != NULL && wall[i][m]->getIsempty() == 0)
-		{
-			wall[i][m]->setIsempty(1);
-			break;
-		}
-		if(b == NULL)
-			break;
-	}
-	for(int m = j+1 ; m<=j+degree ; m++)
-	{		
-		b= dynamic_cast <Brick*>(wall[i][m]);
-		if(b != NULL && wall[i][m]->getIsempty() == 0)
-		{
-			wall[i][m]->setIsempty(1);
-			break;
-		}
-		if(b == NULL)
-			break;
-	}					
 		
-		return wall;	
+		if(wall[m][j]->greeting(manPosition, 0) == true)	//dead Man
+			explosion = false;
+
+	}	
+
+	//................* check left *................	
+	
+	for(int m = j-1 ; m >= j-degree && m >= 0 && m <= 16; m--)
+	{		
+		brick = dynamic_cast <Brick*> (wall[i][m]);
+
+		if(brick != NULL)
+		{
+			type = brick->getType();
+			if(type != "fire" && type != "bomb" && type !="veloc")
+				brick->setType("f");
+		}
+		
+		else
+			break;
+			
+		if(brick != NULL && wall[i][m]->getIsempty() == 0)
+		{
+			wall[i][m]->setIsempty(1);
+
+			if(type != "fire" && type != "bomb" && type !="veloc")
+				brick->setType("f");
+
+			break;
+		}
+		
+		if(wall[i][m]->greeting(manPosition,0) == true)		//dead Man
+			explosion = false;
+		
+	}
+
+	//................* check right *................
+		
+	for(int m = j+1 ; m <= j+degree && m >= 0 && m <= 16; m++)
+	{		
+		brick = dynamic_cast <Brick*> (wall[i][m]);
+
+		if(brick != NULL)
+		{
+			type = brick->getType();
+			if(type != "fire" && type != "bomb" && type !="veloc")
+				brick->setType("f");
+		}
+		
+		else
+			break;
+							
+		if(brick != NULL && wall[i][m]->getIsempty() == 0)
+		{
+			wall[i][m]->setIsempty(1);
+			
+			if(type != "fire" && type != "bomb" && type !="veloc")
+				brick->setType("f");
+
+			break;
+		}
+		
+		if(wall[i][m]->greeting(manPosition, 0) == true)	//dead Man
+			explosion = false;
+		
+	}
+
+	return explosion;	
 }
+//..............................* end of Explosion *...................................

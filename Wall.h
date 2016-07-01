@@ -13,6 +13,7 @@ public:
 	virtual bool getIsempty();
 	virtual void setPosition(float x, float y);	
 	virtual Position *getPosition();
+	bool greeting(Position *position, bool flag);
 
 };
 #endif

@@ -1,6 +1,6 @@
 #ifndef __WORLD_H__
 #define __WORLD_H__
-#include "Bomb.h"
+#include "BomberMan.h"
 
 class World
 {

@@ -3,6 +3,7 @@
 BomberMan::BomberMan()
 {
 	position = new Position();
+	numberBomb = 1;
 }
 void BomberMan::setPosition(float x, float y)
 {
@@ -37,22 +38,41 @@ float BomberMan::getVelocity()
 {
 	return velocity;
 }
-bool BomberMan::greeting(Wall *wall)
-{
-	if(((position->x +32 <= wall->getPosition()->x ||
-		position->x >= wall->getPosition()->x+32  ||
-		position->y >= wall->getPosition()->y+32  ||
-		position->y +32 <= wall->getPosition()->y) && 
-		wall->getIsempty() == 0) || wall->getIsempty() == 1 )
-				return false;
-	cout << "samin\n";
-	cout<<"wall  "<< wall->getPosition()->x <<"   "<< wall->getPosition()->y<<endl;
-	cout<<"man	"<<position->x<<"	"<<position->y<<endl;
-	
-	
-	return true;
-	
+
+int BomberMan::setGift(Brick **brick, Bomb *bomb)
+{	
+	for(int i=0 ;i<17 ;i++)
+		for(int j=0 ;j<17 ;j++)
+		{
+			if(position->x+28 <= brick[i][j].getPosition()->x+32 && position->x >= brick[i][j].getPosition()->x &&
+				position->y+28 <= brick[i][j].getPosition()->y+32 && position->y >= brick[i][j].getPosition()->y)
+				{
+					if(brick[i][j].getType() == "bomb")
+					{
+						brick[i][j].setType("null");
+						numberBomb++;
+					}
 		
-}	
+					if(brick[i][j].getType() == "fire")
+					{
+						brick[i][j].setType("null");
+						for(int i =0; i<numberBomb ; i++)
+							bomb[i].setDegree();
+					}
 
+					if(brick[i][j].getType() == "veloc")
+					{
+						brick[i][j].setType("null");
+						for(int i =0; i<numberBomb ; i++)
+							bomb[i].setDegree();
+					}
+				}
+			}
 
+		return numberBomb;
+}
+
+int BomberMan::getNumBomb()
+{
+	return numberBomb;
+}

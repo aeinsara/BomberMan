@@ -3,6 +3,7 @@
 #include "Wall.h"
 #include <iostream>
 #include <string>
+
 using namespace std;
 class Brick:public Wall
 {
