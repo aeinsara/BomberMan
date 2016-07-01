@@ -1,307 +1,395 @@
 #include "Manager_client.h"
 #include "Client.h"
-//#include "SocketException.h"
-#include <iostream>
-#include <string>
+//#include <SFML/Audio.hpp>
 
-//#include "World.h"
-bool interface(Wall **wall, Position * pos, int**ary)
+
+
+
+Manager::Manager()
 {
-	bool flag = false;
-	for(int i=0 ; i<17 ;i++)
-	for(int j=0 ; j<17 ;j++)
-	{
-		if((wall[i][j].getPosition()->y-10 <= pos->y &&   pos->y < (wall[i][j].getPosition()->y)+22 
-		&& (wall[i][j].getPosition()->x )-10<= pos->x &&   pos->x <= (wall[i][j].getPosition()->x)+23 ))
-		{
-			//cout<<"position  "<<i<<"  "<<j<<"  wall   "<<wall[i][j].getPosition()->x<<"  "<<wall[i][j].getPosition()->y<<endl;
-				if(ary[i+1][j] == 0 )
-				flag = true;
-		}
-	}
-	
-		return flag;
-}
-bool interface2(Wall **wall, Position * pos, int**ary)
-{
-	bool flag = false;
-	for(int i=0 ; i<17 ;i++)
-	for(int j=0 ; j<17 ;j++)
-	{
-		if((wall[i][j].getPosition()->y-10 <= pos->y &&   pos->y < (wall[i][j].getPosition()->y)+22 
-		&& (wall[i][j].getPosition()->x )-10<= pos->x &&   pos->x <= (wall[i][j].getPosition()->x)+23 ))
-		{
-			
-				if(ary[i][j] == 0 )
-				flag = true;
-		}
-	}
-	
-		return flag;
-}
-bool interface3(Wall **wall, Position * pos, int**ary)
-{
-	bool flag = false;
-	for(int i=0 ; i<17 ;i++)
-	for(int j=0 ; j<17 ;j++)
-	{
-		if(wall[i][j].getPosition()->y-23 <= pos->y &&   pos->y < (wall[i][j].getPosition()->y)+8 
-		&& (wall[i][j].getPosition()->x )-10<= pos->x &&   pos->x <= (wall[i][j].getPosition()->x)+33 )
-		{
-			
-				if(ary[i][j+1] == 0 )
-				flag = true;
-		}
-	}
-	
-		return flag;
-}
-bool interface4(Wall **wall, Position * pos, int**ary)
-{
-	bool flag = false;
-	for(int i=0 ; i<17 ;i++)
-	for(int j=0 ; j<17 ;j++)
-	{
-		if(wall[i][j].getPosition()->y-23 <= pos->y &&   pos->y < (wall[i][j].getPosition()->y)+8 
-		&& (wall[i][j].getPosition()->x )-5<= pos->x &&   pos->x <= (wall[i][j].getPosition()->x)+33 )
-		{
-			
-				if(ary[i][j] == 0 )
-				flag = true;
-		}
-	}
-	
-		return flag;
-}
-int getX(Wall **wall, Position * pos)
-{
-	for(int i=0 ; i<17 ;i++)
-	for(int j=0 ; j<17 ;j++)
-	{
-		if(wall[i][j].getPosition()->x<= pos->x &&   pos->x <= (wall[i][j].getPosition()->x)+33 &&
-		wall[i][j].getPosition()->y -13<= pos->y &&   pos->y < wall[i][j].getPosition()->y+19)
-			{return i;
-				
-			}
-	}
-	
+	world = new World();
+	gui = new GUI();
 }
 
-int getY(Wall **wall, Position * pos)
+void Manager::run()
 {
-	for(int i=0 ; i<17 ;i++)
-	for(int j=0 ; j<17 ;j++)
-	{
-		if(wall[i][j].getPosition()->y-13<= pos->y &&   pos->y < wall[i][j].getPosition()->y+19 &&
-		wall[i][j].getPosition()->x<= pos->x &&   pos->x <= (wall[i][j].getPosition()->x)+33 )
-				return j;
-	}
-}
-	Manager::Manager()
-	{
-		world = new World();
-		gui = new GUI();
-	}
+	bool running = true;
+	
+	//............................* run musics *................................
 
-	void Manager::run()
+	sf::Music menuMusic;
+	sf::Music gameMusic;
+	sf::Music aboutMusic;
+	
+	if(!menuMusic.openFromFile("/home/aeinsara/Desktop/game_gift/bombrMan_image/menu.ogg")){}
+	if(!gameMusic.openFromFile("/home/aeinsara/Desktop/game_gift/bombrMan_image/play_game.ogg")){ }
+	if(!aboutMusic.openFromFile("/home/aeinsara/Desktop/game_gift/bombrMan_image/play_game.ogg")){ }
+	
+	menuMusic.play();
+	menuMusic.setLoop(true);	
+	
+
+		
+	switch (gui->drawMenu())
 	{
-		bool running = true;
-		while (running)
-		{
-			while (gui->pollEvent())
+		case 1:
+			menuMusic.stop();
+			aboutMusic.stop();
+			
+			while (true)
 			{
-				if (gui->getEventType() == sf::Event::Closed)
-					running = false;
+
+					
+				while (gui->pollEvent())
+				{
+					if (gui->getEventType() == sf::Event::Closed)
+					{
+						gui->close();
+					}
+				}
+			
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				{
+					aboutMusic.stop();
+					gameMusic.play();     
+					
+					run();
+					break;
+				}
 			}
-			handleGame();
-			gui->show(world);
-		}
-		gui->close();
+			break;
+			
+		case 0:	
+			menuMusic.stop();
+			gameMusic.play();     
+			gui->show(world,0);
+		
+			while (running)
+			{
+				while (gui->pollEvent())
+				{
+					if (gui->getEventType() == sf::Event::Closed)
+						running = false;
+				}
+				handleGame();
+				gui->show(world, 0);
+			}
+			gui->close();
+			break;
 	}
+
+	gui->show(world, 0);
+}
 	
-////////////////////	
+	
 std::string client_data = " ";
-//////////////////////
+
+
+
+time_t time_pause;
+time_t time_winner;
+time_t time_client[4];
+time_t time_server[4];
+
+//int counter;
 
 void Manager::handleGame()
 {
 	Position *posUp = world->getupMan()->getPosition();
 	Position *posDown = world->getdownMan()->getPosition();
-		
-		//............................................ * client *...................................
-
-		
-		ClientSocket client_socket ( "172.18.208.192", 30000 );
-		
-		 //try
-		//{
-			std::string server_data;
-
-			//try
-			//{
-				client_socket << client_data;
-				client_socket >> server_data;
-			//}
-			//catch ( SocketException& ) {}
-
-		std::cout << "We received this response from the server : \t" << server_data << "\n";
-
-		//}
-		//catch ( SocketException& e )
-		//{
-		//	std::cout << "Exception was caught:" << e.description() << "\n";
-		//}
 	
-		//............................................ * end of client *...................................	
+	
+	//std::string server_data;
+	
 
-
-		//............................................* Down Man (server)*...........................................
 		
-		if(server_data == "Down")
-		{
-			bool a = interface(world->getWall(), world->getdownMan()->getPosition(), world->getAry());
-			if(a == true)
-				posDown->y+=5;
+	//....................................... * client *.....................................
 
-			world->getdownMan()->setFace("front");
-		}
 		
-		if(server_data == "Up")
-		{
-			bool a2 = interface2(world->getWall(), world->getdownMan()->getPosition(), world->getAry());
-			if(a2 == true)
-				posDown->y-=5;
+	ClientSocket client_socket ( "172.18.208.192", 30000 );
 
-			world->getdownMan()->setFace("back");				
-		}
+	std::string server_data;
+	
+	client_socket << client_data;
+	client_socket >> server_data;
+
+	std::cout << "We received this response from the server : \t" << server_data << "\n";
+
+
+	//...................................... * end of client *.................................
+	
+
+	//......................................* Down Man (server)*...............................
 		
-		if(server_data == "Right")
-		{
-			bool a3 = interface3(world->getWall(), world->getdownMan()->getPosition(), world->getAry());	
-			if(a3 == true)				
-				posDown->x+=5;	
-
-			world->getdownMan()->setFace("right");									
-		}
+	if(server_data == "Down")
+	{
+		posDown->y += 4;
+		for(int i=0 ;i<17 ;i++)	
+			for(int j=0 ;j<17 ;j++)
+			{
+				if(world->getWall()[i][j]->greeting(posDown, 1) == true)
+					posDown->y -= 4;
+			}		
+		world->getdownMan()->setFace("front");
+	}	
 		
-		if(server_data == "Left")
-		{
-			bool a4 = interface4(world->getWall(), world->getdownMan()->getPosition(), world->getAry());
-			if(a4 == true)
-				posDown->x-=5;
-
-			world->getdownMan()->setFace("left");					
-		}
+	if(server_data == "Up")
+	{
+		posDown->y -= 4;
+		for(int i=0 ;i<17 ;i++)	
+			for(int j=0 ;j<17 ;j++)
+			{
+				if(world->getWall()[i][j]->greeting(posDown, 1) == true)
+					posDown->y += 4;
+			}
+		world->getdownMan()->setFace("back");				
+	}
+		
+	if(server_data == "Right")
+	{
+		posDown->x += 4;
+		for(int i=0 ;i<17 ;i++)	
+			for(int j=0 ;j<17 ;j++)
+			{
+				if(world->getWall()[i][j]->greeting(posDown, 1) == true)
+					posDown->x -= 4;
+			}
+		world->getdownMan()->setFace("right");									
+	}
+		
+	if(server_data == "Left")
+	{
+		posDown->x -= 4;
+		for(int i=0 ;i<17 ;i++)	
+			for(int j=0 ;j<17 ;j++)
+			{
+				if(world->getWall()[i][j]->greeting(posDown, 1) == true)
+					posDown->x += 4;
+			}
+		world->getdownMan()->setFace("left");					
+	}
 		
 				
-		if(server_data == "Bomb")
+	else if(server_data == "Bomb")
+	{
+		for(int i=0; i< world->getdownMan()->getNumBomb(); i++)
 		{
-			world->getdownBomb()->setPosition(posDown->x, posDown->y);
-			int i = getX(world->getWall(), world->getdownMan()->getPosition());
-			int j = getY(world->getWall(), world->getdownMan()->getPosition());
-			world->getdownBomb()->Explosion(world->getAry(), i, j);
-			cout<<posDown->x<<"   "<<posDown->y<<endl;
-			cout<<"i  "<<i<<"  j   "<<j<<endl;
-				
-			//client_data = "Bomb";	
+			if(world->getdownBomb()[i].getPosition()->x == 512 && world->getdownBomb()[i].getPosition()->y == 512)
+			{
+				time_server[i] = time(0);
+				world->getdownBomb()[i].setPosition(posDown->x, posDown->y, world->getdownMan()->getFace());
+				break;
+			}
 		}
-			
-			
-		world->getdownMan()->setPosition(posDown->x, posDown->y);
+	}	
+		
+	for(int i = 0; i < 4 ;i++)
+	{
+		if(time(0) - time_server[i] >= 3)
+		{	
+			if (world->getdownBomb()[i].Explosion(world->getWall(), posDown) == false )
+			{
+				world->getdownBomb()[i].setPosition(512, 512, "front");
+				world->getdownMan()->setPosition(577, 577);
 				
-		//....................................* Up Man (client)*......................................
-		
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-			{
-				bool a = interface(world->getWall(), world->getupMan()->getPosition(), world->getAry());
-				if(a == true)
-					posUp->y+=5;
-					
-				client_data = "Down";
-					
-				world->getupMan()->setFace("front");
-			}
-			
-			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-			{
-				bool a2 = interface2(world->getWall(), world->getupMan()->getPosition(), world->getAry());
-				if(a2 == true)
-					posUp->y-=5;
-					
-				client_data = "Up";
-					
-				world->getupMan()->setFace("back");
-			}
-			
-			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			{
-				bool a3 = interface3(world->getWall(), world->getupMan()->getPosition(), world->getAry());	
-				if(a3 == true)				
-					posUp->x+=5;
-					
-				client_data = "Right";
-					
-				world->getupMan()->setFace("right");				
-			}
-			
-			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-			{
-				bool a4 = interface4(world->getWall(), world->getupMan()->getPosition(), world->getAry());
-				if(a4 == true)
-					posUp->x-=5;
-					
-				client_data = "Left";
-					
-				world->getupMan()->setFace("left");	
+				gui->show(world, 0);
+				time_winner = time(0);
 				
+				while(true)
+				{
+					if (time(0) - time_winner >= 2)
+						break;
+				}
+							
+				while (true)
+				{	
+					gui->show(world,4);
+					
+					while (gui->pollEvent())
+					{
+						if (gui->getEventType() == sf::Event::Closed)
+						{
+							gui->close();
+						}
+					}
+						
+					if (time(0) - time_winner >= 6)
+					{
+						time_winner = time(0);
+						run();
+					}
+				}
 			}
 			
-			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			{
-				world->getupBomb()->setPosition(posUp->x, posUp->y);
-				int i = getX(world->getWall(), world->getupMan()->getPosition());
-				int j = getY(world->getWall(), world->getupMan()->getPosition());
-				world->getupBomb()->Explosion(world->getAry(), i, j);
-				cout<<posUp->x<<"   "<<posUp->y<<endl;
-				cout<<"i  "<<i<<"  j   "<<j<<endl;
+			world->getdownBomb()[i].setPosition(512, 512, "front");		
+		}
+	}	
+	
+	world->getdownMan()->setGift(world->getBrick(), world->getdownBomb());	
 				
-				client_data = "Bomb";	
-			}
-			
-			else
+	world->getdownMan()->setPosition(posDown->x, posDown->y);
+
+
+	
+				
+	//....................................* Up Man (client)*......................................
+		
+
+	
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		posUp->y += 4;
+		for(int i=0 ;i<17 ;i++)	
+			for(int j=0 ;j<17 ;j++)
 			{
-				client_data = " ";
+				if(world->getWall()[i][j]->greeting(posUp, 1) == true)
+					posUp->y -= 4;
+			}		
+		client_data = "Down";			
+		world->getupMan()->setFace("front");
+	}
+	
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		posUp->y -= 4;
+		for(int i=0 ;i<17 ;i++)	
+			for(int j=0 ;j<17 ;j++)
+			{
+				if(world->getWall()[i][j]->greeting(posUp, 1) == true)
+					posUp->y += 4;
+			}					
+		client_data = "Up";		
+		world->getupMan()->setFace("back");
+	}
+			
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		posUp->x += 4;
+		for(int i=0 ;i<17 ;i++)	
+			for(int j=0 ;j<17 ;j++)
+			{
+				if(world->getWall()[i][j]->greeting(posUp, 1) == true)
+					posUp->x -= 4;
+			}							
+		client_data = "Right";					
+		world->getupMan()->setFace("right");				
+	}
+			
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		posUp->x -= 4;
+		for(int i=0 ;i<17 ;i++)	
+			for(int j=0 ;j<17 ;j++)
+			{
+				if(world->getWall()[i][j]->greeting(posUp, 1) == true)
+					posUp->x += 4;
+			}			
+		client_data = "Left";			
+		world->getupMan()->setFace("left");	
+				
+	}
+	
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+
+		for(int i=0; i < world->getupMan()->getNumBomb(); i++)
+		{
+			if(world->getupBomb()[i].getPosition()->x == 0 && world->getupBomb()[i].getPosition()->y == 0)
+			{	
+				client_data = "Bomb";
+				time_client[i] = time(0);
+				world->getupBomb()[i].setPosition(posUp->x, posUp->y, world->getupMan()->getFace());
+				break;
+			}
+		}
+	
+	}
+	
+	else
+	{
+		client_data = " ";
+	}
+
+	for(int i = 0; i < 4 ;i++)
+	{
+		if(time(0) - time_client[i] >= 3)
+		{	
+			if (world->getupBomb()[i].Explosion(world->getWall(), posUp) == false )
+			{
+				world->getupBomb()[i].setPosition(0, 0, "front");
+				world->getupMan()->setPosition(577, 577);
+				
+				gui->show(world, 0);
+				time_winner = time(0);
+				
+				while(true)
+				{
+					if (time(0) - time_winner >= 2)
+						break;
+				}
+							
+				while (true)
+				{	
+					gui->show(world,3);
+					
+					while (gui->pollEvent())
+					{
+						if (gui->getEventType() == sf::Event::Closed)
+						{
+							gui->close();
+						}
+					}
+						
+					if (time(0) - time_winner >= 6)
+					{
+						time_winner = time(0);
+						run();
+					}
+				}
 			}
 			
-		world->getupMan()->setPosition(posUp->x, posUp->y);
+			world->getupBomb()[i].setPosition(0, 0, "front");		
+		}
+	}
 		
+	world->getupMan()->setGift(world->getBrick(), world->getupBomb());	
+	
+	world->getupMan()->setPosition(posUp->x, posUp->y);
+
+	//....................................* PAUSE *.....................................
+				
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && 	(time(0) - time_pause >= 1))
+	{	
+		time_pause = time(0);
+		while (true)
+		{			
+			gui->show(world,1);
+					
+			while (gui->pollEvent())
+			{
+				if (gui->getEventType() == sf::Event::Closed)
+				{
+					gui->close();
+				}
+			}
+						
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && (time(0) - time_pause >= 1))
+			{
+				time_pause = time(0);
+				break;
+			}
+		}			
+	}
+
+	//.........................................* end of PAUSE *...................................
 		
-		//............................................ * client *...................................
-		// try
-		//{
+	 
+	//......................................... * client *...................................
 
-			//ClientSocket client_socket ( "172.18.208.192", 30000 );
+	client_socket << client_data;
+	client_socket >> server_data;
 
-			//std::string server_data;
-
-			//try
-			//{
-				client_socket << client_data;
-				client_socket >> server_data;
-			//}
-			//catch ( SocketException& ) {}
-
-		//std::cout << "We send this response : \t " << client_data << "\n";;
-
-		//}
-		//catch ( SocketException& e )
-		//{
-			//std::cout << "Exception was caught:" << e.description() << "\n";
-		//}
-		
-
-		//............................................ * end of client *...................................	
-
-		
+	//...................................... * end of client *...............................
+	
 	}
 
