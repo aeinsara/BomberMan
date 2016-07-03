@@ -63,8 +63,7 @@ int BomberMan::setGift(Brick **brick, Bomb *bomb)
 					if(brick[i][j].getType() == "veloc")
 					{
 						brick[i][j].setType("null");
-						for(int i =0; i<numberBomb ; i++)
-							bomb[i].setDegree();
+						velocity = 8;
 					}
 				}
 			}
@@ -76,3 +75,53 @@ int BomberMan::getNumBomb()
 {
 	return numberBomb;
 }
+void BomberMan::motion(Wall ***wall , string side)
+{
+	if(side == "down")
+	{
+		position->y += 4;
+		for(int i=0 ;i<17 ;i++)	
+			for(int j=0 ;j<17 ;j++)
+			{
+				if(wall[i][j]->greeting(position, 1) == true)
+					position->y -= velocity;
+			}
+			face = "front";
+	}
+	else if(side == "up")
+	{
+		position->y -= 4;
+		for(int i=0 ;i<17 ;i++)	
+			for(int j=0 ;j<17 ;j++)
+			{
+				if(wall[i][j]->greeting(position, 1) == true)
+					position->y +=  velocity;
+			}
+		face = "back";
+	}
+	else if(side == "right")
+	{
+		position->x += 4;
+		for(int i=0 ;i<17 ;i++)	
+			for(int j=0 ;j<17 ;j++)
+			{
+				if(wall[i][j]->greeting(position, 1) == true)
+					position->x -= velocity;
+			}
+		face = "right";
+	}
+	else if(side == "left")
+	{
+		position->x -= 4;
+		for(int i=0 ;i<17 ;i++)	
+			for(int j=0 ;j<17 ;j++)
+			{
+				if(wall[i][j]->greeting(position, 1) == true)
+					position->x +=  velocity;
+			}
+			face = "left";
+				
+	}
+}
+
+

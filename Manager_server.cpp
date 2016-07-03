@@ -22,9 +22,9 @@ void Manager::run()
 	sf::Music gameMusic;
 	sf::Music aboutMusic;
 	
-	if(!menuMusic.openFromFile("/home/samin/Desktop/firstNetwork/game_sara/bombrMan_image/menu.ogg")){}
-	if(!gameMusic.openFromFile("/home/samin/Desktop/firstNetwork/game_sara/bombrMan_image/play_game.ogg")){ }
-	if(!aboutMusic.openFromFile("/home/samin/Desktop/firstNetwork/game_sara/bombrMan_image/back.ogg")){ }
+	if(!menuMusic.openFromFile("/home/samin/Desktop/firstNetwork/game/bombrMan_image/menu.ogg")){}
+	if(!gameMusic.openFromFile("/home/samin/Desktop/firstNetwork/game/bombrMan_image/play_game.ogg")){ }
+	if(!aboutMusic.openFromFile("/home/samin/Desktop/firstNetwork/game/bombrMan_image/back.ogg")){ }
 	
 	menuMusic.play();
 	menuMusic.setLoop(true);	
@@ -95,72 +95,43 @@ void Manager::handleGame()
 {
 	Position *posUp = world->getupMan()->getPosition();
 	Position *posDown = world->getdownMan()->getPosition();
-		
+
 	//..........................................* server *.....................................
-	std::string client_data;
+	/*std::string client_data;
 	ServerSocket new_sock;
 
-	std::cout << "running....\n";
+//	std::cout << "running....\n";
 
     ServerSocket server ( 30000 );
   
 	server.accept ( new_sock );
 	  
 	new_sock >> client_data;
-	new_sock << server_data;
+	new_sock << server_data;*/
 	
 
 	//.........................................* end of server *......................................
-
 
 	//...........................................* Up Man (client)*...............................
 		
 	if(client_data == "Down")
 	{
-		posUp->y += 4;
-		for(int i=0 ;i<17 ;i++)	
-			for(int j=0 ;j<17 ;j++)
-			{
-				if(world->getWall()[i][j]->greeting(posUp, 1) == true)
-					posUp->y -= 4;
-			}		
-		world->getupMan()->setFace("front");
+		world->getupMan()->motion(world->getWall(), "down");
 	}	
 		
 	if(client_data == "Up")
 	{
-		posUp->y -= 4;
-		for(int i=0 ;i<17 ;i++)	
-			for(int j=0 ;j<17 ;j++)
-			{
-				if(world->getWall()[i][j]->greeting(posUp, 1) == true)
-					posUp->y += 4;
-			}
-		world->getupMan()->setFace("back");				
+		world->getupMan()->motion(world->getWall(), "up");			
 	}
 		
 	if(client_data == "Right")
 	{
-		posUp->x += 4;
-		for(int i=0 ;i<17 ;i++)	
-			for(int j=0 ;j<17 ;j++)
-			{
-				if(world->getWall()[i][j]->greeting(posUp, 1) == true)
-					posUp->x -= 4;
-			}
-		world->getupMan()->setFace("right");									
+		world->getupMan()->motion(world->getWall(), "right");								
 	}
 		
 	if(client_data == "Left")
 	{
-		posUp->x -= 4;
-		for(int i=0 ;i<17 ;i++)	
-			for(int j=0 ;j<17 ;j++)
-			{
-				if(world->getWall()[i][j]->greeting(posUp, 1) == true)
-					posUp->x += 4;
-			}
-		world->getupMan()->setFace("left");					
+		world->getupMan()->motion(world->getWall(), "left");				
 	}
 		
 				
@@ -189,12 +160,12 @@ void Manager::handleGame()
 				gui->show(world, 0);
 				time_winner = time(0);
 				
-				while(true)
+			while(true)
 				{
 					if (time(0) - time_winner >= 2)
 						break;
 				}
-							
+					cout << "lose\n";		
 				while (true)
 				{	
 					gui->show(world,4);
@@ -210,6 +181,7 @@ void Manager::handleGame()
 					if (time(0) - time_winner >= 6)
 					{
 						time_winner = time(0);
+						world = new World();
 						run();
 					}
 				}
@@ -231,55 +203,26 @@ void Manager::handleGame()
 	
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		posDown->y += 4;
-		for(int i=0 ;i<17 ;i++)	
-			for(int j=0 ;j<17 ;j++)
-			{
-				if(world->getWall()[i][j]->greeting(posDown, 1) == true)
-					posDown->y -= 4;
-			}		
+		world->getdownMan()->motion(world->getWall(), "down");
 		server_data = "Down";			
-		world->getdownMan()->setFace("front");
 	}
 	
 	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		posDown->y -= 4;
-		for(int i=0 ;i<17 ;i++)	
-			for(int j=0 ;j<17 ;j++)
-			{
-				if(world->getWall()[i][j]->greeting(posDown, 1) == true)
-					posDown->y += 4;
-			}					
+		world->getdownMan()->motion(world->getWall(), "up");				
 		server_data = "Up";		
-		world->getdownMan()->setFace("back");
 	}
 			
 	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		posDown->x += 4;
-		for(int i=0 ;i<17 ;i++)	
-			for(int j=0 ;j<17 ;j++)
-			{
-				if(world->getWall()[i][j]->greeting(posDown, 1) == true)
-					posDown->x -= 4;
-			}							
-		server_data = "Right";					
-		world->getdownMan()->setFace("right");				
+		world->getdownMan()->motion(world->getWall(), "right");
+		server_data = "Right";								
 	}
 			
 	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		posDown->x -= 4;
-		for(int i=0 ;i<17 ;i++)	
-			for(int j=0 ;j<17 ;j++)
-			{
-				if(world->getWall()[i][j]->greeting(posDown, 1) == true)
-					posDown->x += 4;
-			}			
-		server_data = "Left";			
-		world->getdownMan()->setFace("left");	
-				
+      	world->getdownMan()->motion(world->getWall(), "left");		
+		server_data = "Left";						
 	}
 	
 	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
@@ -289,8 +232,9 @@ void Manager::handleGame()
 			if(world->getdownBomb()[i].getPosition()->x == 512 && world->getdownBomb()[i].getPosition()->y == 512)
 			{
 				server_data = "Bomb";	
-				time_client[i] = time(0);
+				time_server[i] = time(0);
 				world->getdownBomb()[i].setPosition(posDown->x, posDown->y, world->getdownMan()->getFace());
+				cout << "bomb\n";
 				break;
 			}
 		}
@@ -304,7 +248,7 @@ void Manager::handleGame()
 
 	for(int i = 0; i < 4 ;i++)
 	{
-		if(time(0) - time_client[i] >= 3)
+		if(time(0) - time_server[i] >= 3)
 		{	
 			if (world->getdownBomb()[i].Explosion(world->getWall(), posDown) == false )
 			{
@@ -334,7 +278,10 @@ void Manager::handleGame()
 						
 					if (time(0) - time_winner >= 6)
 					{
+						
+					//	gameMusic.play();
 						time_winner = time(0);
+						world = new World();
 						run();
 					}
 				}
@@ -376,15 +323,15 @@ void Manager::handleGame()
 	//.........................................* end of PAUSE *...................................
 		
 		
-	 
+
 	//.....................................* server *.....................................
 
-	new_sock >> client_data;
-	new_sock << server_data;
+	///new_sock >> client_data;
+	///new_sock << server_data;
 
-	cout << server_data << "\n";	   
+//	cout << server_data << "\n";	   
 
 	//.................................* end of server *..................................
-	
+
 	}
 

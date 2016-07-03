@@ -20,7 +20,7 @@ class BomberMan
 		void setFace(string face);
 		void setLife(int life);
 		void setVelocity(float velocity);
-	//	void set(int numbomb);
+		void motion(Wall ***wall, string side);
 		Position *getPosition();
 
 		int getLife();

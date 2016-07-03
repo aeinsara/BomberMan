@@ -79,6 +79,57 @@ World::World()
 	brick[12][7].setType("bomb");
 	brick[10][13].setType("bomb");
 	
+	
+	wall[1][1]->setIsempty(1);
+	wall[1][2]->setIsempty(1);
+	wall[2][1]->setIsempty(1);
+	wall[3][2]->setIsempty(1);
+	wall[4][1]->setIsempty(1);
+	wall[3][1]->setIsempty(1);	
+
+	wall[15][15]->setIsempty(1);
+	wall[15][14]->setIsempty(1);
+	wall[14][15]->setIsempty(1);
+	
+	
+	wall[1][7]->setIsempty(1);
+	wall[1][11]->setIsempty(1);		
+	wall[1][14]->setIsempty(1);
+	wall[1][15]->setIsempty(1);
+	wall[2][15]->setIsempty(1);
+	
+	wall[3][5]->setIsempty(1);
+	wall[4][5]->setIsempty(1);
+	wall[5][5]->setIsempty(1);
+	wall[6][9]->setIsempty(1);
+	wall[7][9]->setIsempty(1);
+	
+	wall[8][9]->setIsempty(1);
+	wall[10][9]->setIsempty(1);
+	wall[11][9]->setIsempty(1);
+	wall[7][8]->setIsempty(1);
+	wall[7][9]->setIsempty(1);
+	
+	wall[9][7]->setIsempty(1);
+	
+	wall[9][9]->setIsempty(1);
+	wall[7][10]->setIsempty(1);
+	wall[9][11]->setIsempty(1);
+	wall[9][8]->setIsempty(1);
+	wall[10][7]->setIsempty(1);
+	
+	wall[11][3]->setIsempty(1);
+	wall[12][3]->setIsempty(1);
+	wall[13][3]->setIsempty(1);
+	wall[14][3]->setIsempty(1);
+	wall[13][4]->setIsempty(1);
+	
+	wall[9][14]->setIsempty(1);
+	wall[9][15]->setIsempty(1);
+	wall[8][15]->setIsempty(1);
+	wall[7][15]->setIsempty(1);
+	//wall[13][4]->setIsempty(1);
+	
 	mWorldLength = 100.0f;
 	mWorldWidth = 100.0f;
 		
@@ -97,7 +148,7 @@ World::World()
 	upBomb = new Bomb[4];
 	for(int i =0 ;i<4 ;i++)
 	{
-		upBomb[i].setPosition(32, 32, "front");
+		upBomb[i].setPosition(0, 0, "front");
 	}	
 	//.........................*creat explotion*
 	//upBomb->Explosion(wall);
