@@ -22,7 +22,7 @@ void GUI::drawWall(Wall ***wall)
 			if(brick == NULL && wall[i][j]->getIsempty() == 0)
 			{		
 				sf::Texture texture1;
-				if(!texture1.loadFromFile("/home/samin/Desktop/game_gift/bombrMan_image/q1.PNG")){}
+				if(!texture1.loadFromFile("/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/q1.PNG")){}
 				sf::Sprite texture1sprite1(texture1);
 				texture1sprite1.setTexture(texture1);
 				texture1sprite1.setPosition(wall[i][j]->getPosition()->x, wall[i][j]->getPosition()->y );
@@ -31,7 +31,7 @@ void GUI::drawWall(Wall ***wall)
 			
 			if(brick != NULL && wall[i][j]->getIsempty() == 0 && brick->getType() != "null"){
 			sf::Texture texture2;
-			if(!texture2.loadFromFile("/home/samin/Desktop/game_gift/bombrMan_image/q3.PNG")){}
+			if(!texture2.loadFromFile("/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/q3.PNG")){}
 			sf::Sprite texture1sprite2(texture2);
 			texture1sprite2.setTexture(texture2);
 			texture1sprite2.setPosition(wall[i][j]->getPosition()->x, wall[i][j]->getPosition()->y );
@@ -50,7 +50,7 @@ void GUI::drawGift(Brick **brick)
 			if(brick[i][j].getType()== "bomb")
 			{
 				sf::Texture texture;
-				if(!texture.loadFromFile("/home/samin/Desktop/game_gift/bombrMan_image/bombGift.png")){}
+				if(!texture.loadFromFile("/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/bombGift.png")){}
 				sf::Sprite texture1sprite(texture);
 				texture1sprite.setTexture(texture);
 				texture1sprite.setPosition(brick[i][j].getPosition()->x, brick[i][j].getPosition()->y );
@@ -60,7 +60,7 @@ void GUI::drawGift(Brick **brick)
 			else if(brick[i][j].getType()== "fire")
 			{
 				sf::Texture texture;
-				if(!texture.loadFromFile("/home/samin/Desktop/game_gift/bombrMan_image/powerGift.png")){}
+				if(!texture.loadFromFile("/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/powerGift.png")){}
 				sf::Sprite texture1sprite(texture);
 				texture1sprite.setTexture(texture);
 				texture1sprite.setPosition(brick[i][j].getPosition()->x, brick[i][j].getPosition()->y );
@@ -70,7 +70,7 @@ void GUI::drawGift(Brick **brick)
 			else if(brick[i][j].getType()== "veloc")
 			{
 				sf::Texture texture;
-				if(!texture.loadFromFile("/home/samin/Desktop/game_gift/bombrMan_image/velocityGift.png")){}
+				if(!texture.loadFromFile("/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/velocityGift.png")){}
 				sf::Sprite texture1sprite(texture);
 				texture1sprite.setTexture(texture);
 				texture1sprite.setPosition(brick[i][j].getPosition()->x, brick[i][j].getPosition()->y );
@@ -80,7 +80,7 @@ void GUI::drawGift(Brick **brick)
 			if(brick[i][j].getType()== "f")
 			{
 				sf::Texture texture;
-				if(!texture.loadFromFile("/home/samin/Desktop/game_gift/bombrMan_image/fire.PNG")){}
+				if(!texture.loadFromFile("/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/fire.PNG")){}
 				sf::Sprite texture1sprite(texture);
 				texture1sprite.setTexture(texture);
 				texture1sprite.setPosition(brick[i][j].getPosition()->x, brick[i][j].getPosition()->y );
@@ -99,10 +99,10 @@ void GUI::drawBomberman(BomberMan *Man, bool iself)
 		sf::Texture texture1;
 		string address[4];
 		string face;
-		address[0] = "/home/samin/Desktop/game_gift/bombrMan_image/manFront.png";
-		address[1] = "/home/samin/Desktop/game_gift/bombrMan_image/manRight.png";
-		address[2] = "/home/samin/Desktop/game_gift/bombrMan_image/manLeft.png";
-		address[3] = "/home/samin/Desktop/game_gift/bombrMan_image/manBack.PNG";
+		address[0] = "/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/manFront.png";
+		address[1] = "/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/manRight.png";
+		address[2] = "/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/manLeft.png";
+		address[3] = "/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/manBack.png";
 		if("front" == Man->getFace())
 			face = address[0];
 		if("right" == Man->getFace())
@@ -123,10 +123,10 @@ void GUI::drawBomberman(BomberMan *Man, bool iself)
 		sf::Texture texture1;
 		string address[4];
 		string face;
-		address[0] = "/home/samin/Desktop/game_gift/bombrMan_image/manFront.png";
-		address[1] = "/home/samin/Desktop/game_gift/bombrMan_image/manRight.png";
-		address[2] = "/home/samin/Desktop/game_gift/bombrMan_image/manLeft.png";
-		address[3] = "/home/samin/Desktop/game_gift/bombrMan_image/manBack.PNG";
+		address[0] = "/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/frontBlackMan.png";
+		address[1] = "/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/rightBlackMan.png";
+		address[2] = "/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/leftBlackMan.png";
+		address[3] = "/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/backBlackMan.png";
 		if("front" == Man->getFace())
 			face = address[0];
 		if("right" == Man->getFace())
@@ -150,7 +150,7 @@ void GUI::drawBomb(Bomb* bomb)
 	for(int i =0 ;i<4 ;i++)
 	{
 		sf::Texture texture;
-		if(!texture.loadFromFile("/home/samin/Desktop/game_gift/bombrMan_image/bomb.png")){}
+		if(!texture.loadFromFile("/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/bomb.png")){}
 		sf::Sprite texture1sprite(texture);
 		texture1sprite.setTexture(texture);
 		texture1sprite.setPosition(bomb[i].getPosition()->x, bomb[i].getPosition()->y);
@@ -165,7 +165,7 @@ void GUI::drawPause(int flag)
 	if (flag == 1)
 	{
 		sf::Texture texture;
-		if(!texture.loadFromFile("/home/samin/Desktop/game_gift/bombrMan_image/pause.png")){}
+		if(!texture.loadFromFile("/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/pause.png")){}
 		sf::Sprite sprite(texture);
 		sprite.setTexture(texture);
 		sprite.setPosition(160, 200);
@@ -182,7 +182,7 @@ int GUI::drawMenu()
 	Menu menu(window->getSize().x, window->getSize().y);
 	
 	sf::Texture texture;
-    if(!texture.loadFromFile("/home/samin/Desktop/game_gift/bombrMan_image/menu1.png")){}
+    if(!texture.loadFromFile("/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/menu1.png")){}
     sf::Sprite sprite(texture);
     sprite.setTexture(texture);
     sprite.setPosition(0, 0);
@@ -256,7 +256,7 @@ void GUI::drawAbout(int flag)
 	if (flag == 2)
 	{
 		sf::Texture texture;
-		if(!texture.loadFromFile("/home/samin/Desktop/game_gift/bombrMan_image/menu1.png")){}
+		if(!texture.loadFromFile("/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/about.png")){}
 		sf::Sprite sprite(texture);
 		sprite.setTexture(texture);
 		sprite.setPosition(0, 0);
@@ -266,20 +266,19 @@ void GUI::drawAbout(int flag)
 	
 }
 
-//.......................................* end of About *.......................................
 
 
-//.......................................* upMan Winer *......................................
+//..............* Winers *................
 
 void GUI::drawWinner(int flag)
 {
 	if (flag == 3)
 	{
 		sf::Texture texture;
-		if(!texture.loadFromFile("/home/samin/Desktop/game_gift/bombrMan_image/downMan_winner.png")){}
+		if(!texture.loadFromFile("/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/downMan_winner.png")){}
 		sf::Sprite sprite(texture);
 		sprite.setTexture(texture);
-		sprite.setPosition(0, 0);
+		sprite.setPosition(75, 75);
 		window->draw(sprite);
 		
 	}
@@ -287,40 +286,31 @@ void GUI::drawWinner(int flag)
 	else if (flag == 4)
 	{
 		sf::Texture texture;
-		if(!texture.loadFromFile("/home/samin/Desktop/game_gift/bombrMan_image/upMan_winner.png")){}
+		if(!texture.loadFromFile("/home/samin/Desktop/BomberManProject/bomberMan_client/bombrMan_image/upMan_winner.png")){}
 		sf::Sprite sprite(texture);
 		sprite.setTexture(texture);
-		sprite.setPosition(0, 0);
+		sprite.setPosition(75, 75);
 		window->draw(sprite);
 		
 	}
 	
 }
 
-//...................................* end of Winer *....................................
-
-//........................................* Music *...............................................
-/*
-void GUI::playMusic()
-{
-  sf::Music music;
-  if(!music.openFromFile("/home/aeinsara/Desktop/game_gift/bombrMan_image/gitar.ogg")){}
-  music.play();
-}
-*/
 //.......................................* end of Music *...................................
 
 	
 void GUI::show(World *world, int flag)
 {
-	window->clear(sf::Color(0,200,0));
+	window->clear(sf::Color(0,150,0));
 	
 	drawBomb(world->getupBomb());
 	drawBomb(world->getdownBomb());
-		
+	
+			
 	drawWall(world->getWall());
 	
 	drawGift(world->getBrick());
+
 	
 	drawBomberman(world->getupMan(), true);
 	drawBomberman(world->getdownMan(), false);
@@ -344,16 +334,7 @@ sf::Event::EventType GUI::getEventType()
 {
 	return event.type;
 }
-/*void GUI::mu()
-{
-   sf::SoundBuffer buffer;
-    buffer.loadFromFile("/home/fateme/Desktop/1,mp3")
-        
-    // Create a sound instance and play it
-    sf::Sound sound(buffer);
-    sound.play();
 
-}*/
 void GUI::close()
 {
 	window->close();

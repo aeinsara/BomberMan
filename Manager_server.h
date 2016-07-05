@@ -10,7 +10,8 @@ private:
 
 public:
 	Manager();
-	void run();
-	void handleGame();
+	bool run();
+	bool handleGame();
+	void newWorld();
 };
 #endif
